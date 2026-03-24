@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import GoogleAnalytics from '@/components/GoogleAnalytics'
 import './globals.css'
 
 const geistSans = Geist({
@@ -30,12 +31,21 @@ export const metadata: Metadata = {
     title: 'IVHealthClinics — Find IV Therapy & Hydration Clinics Near You',
     description:
       'The most comprehensive directory for IV hydration, vitamin drips, NAD+ therapy, and infusion wellness clinics.',
+    images: [
+      {
+        url: '/og-default.png',
+        width: 1200,
+        height: 630,
+        alt: 'IVHealthClinics — Find IV Therapy & Hydration Clinics Near You',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'IVHealthClinics — Find IV Therapy & Hydration Clinics Near You',
     description:
       'The most comprehensive directory for IV hydration, vitamin drips, NAD+ therapy, and infusion wellness clinics.',
+    images: ['/og-default.png'],
   },
   robots: {
     index: true,
@@ -51,6 +61,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-gray-900`}>
+        <GoogleAnalytics />
         <Header />
         <main className="min-h-screen">{children}</main>
         <Footer />
