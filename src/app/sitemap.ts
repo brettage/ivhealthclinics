@@ -30,6 +30,30 @@ const US_STATES = [
   'sd', 'tn', 'tx', 'ut', 'vt', 'va', 'wa', 'wv', 'wi', 'wy', 'dc',
 ]
 
+const PAGE_SIZE = 1000
+
+/** Fetch all clinics in batches of 1,000 to bypass Supabase default limit */
+async function fetchAllClinics<T extends Record<string, unknown>>(
+  selectColumns: string
+): Promise<T[]> {
+  const allRows: T[] = []
+  let offset = 0
+
+  while (true) {
+    const { data } = await supabase
+      .from('clinics')
+      .select(selectColumns)
+      .range(offset, offset + PAGE_SIZE - 1)
+
+    if (!data || data.length === 0) break
+    allRows.push(...(data as T[]))
+    if (data.length < PAGE_SIZE) break
+    offset += PAGE_SIZE
+  }
+
+  return allRows
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // ── Static pages ──────────────────────────────────────────────
@@ -94,18 +118,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }))
 
-  // ── City pages (from DB) ──────────────────────────────────────
-  const { data: cityData } = await supabase
-    .from('clinics')
-    .select('city, state')
-    .not('city', 'is', null)
-    .not('state', 'is', null)
+  // ── City pages (from DB — paginated) ──────────────────────────
+  const cityRows = await fetchAllClinics<{ city: string; state: string }>('city, state')
 
   const uniqueCities = new Map<string, { city: string; state: string }>()
-  for (const row of cityData ?? []) {
+  for (const row of cityRows) {
+    if (!row.city || !row.state) continue
     const key = `${row.state}-${row.city}`
     if (!uniqueCities.has(key)) {
-      uniqueCities.set(key, { city: row.city!, state: row.state! })
+      uniqueCities.set(key, { city: row.city, state: row.state })
     }
   }
 
@@ -122,18 +143,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   )
 
-  // ── Clinic profile pages (from DB) ────────────────────────────
-  const { data: clinicData } = await supabase
-    .from('clinics')
-    .select('slug, updated_at')
-    .not('slug', 'is', null)
+  // ── Clinic profile pages (from DB — paginated) ────────────────
+  const clinicRows = await fetchAllClinics<{ slug: string; updated_at: string }>('slug, updated_at')
 
-  const clinicPages: MetadataRoute.Sitemap = (clinicData ?? []).map(({ slug, updated_at }) => ({
-    url: `${BASE_URL}/clinics/${slug}`,
-    lastModified: updated_at ? new Date(updated_at) : new Date(),
-    changeFrequency: 'monthly' as const,
-    priority: 0.6,
-  }))
+  const clinicPages: MetadataRoute.Sitemap = clinicRows
+    .filter((row) => row.slug)
+    .map(({ slug, updated_at }) => ({
+      url: `${BASE_URL}/clinics/${slug}`,
+      lastModified: updated_at ? new Date(updated_at) : new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    }))
 
   return [
     ...staticPages,
