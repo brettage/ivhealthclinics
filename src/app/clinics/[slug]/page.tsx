@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getClinicBySlug, searchClinics } from '@/app/actions/clinics'
 import { careSettingLabel, supervisionLabel, serviceTypeLabel, formatPriceRange } from '@/types/clinic'
+import { generateClinicSchema } from '@/lib/schema-org'
 import ClinicCard from '@/components/ClinicCard'
 import type { Metadata } from 'next'
 
@@ -44,8 +45,15 @@ export default async function ClinicDetailPage({
 
   const priceDisplay = formatPriceRange(clinic.price_range_min, clinic.price_range_max)
 
+  const schema = generateClinicSchema(clinic)
+
   return (
-    <div>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
+      <div>
       {/* Hero */}
       <section className="bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -331,6 +339,7 @@ export default async function ClinicDetailPage({
         )}
       </div>
     </div>
+    </>
   )
 }
 
