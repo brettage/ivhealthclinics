@@ -1,7 +1,12 @@
 import { MetadataRoute } from 'next'
-import { createClient } from '@/lib/supabase/server'
+import { createClient } from '@supabase/supabase-js'
 
 const BASE_URL = 'https://ivhealthclinics.com'
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+)
 
 const SERVICE_TYPES = [
   'hydration',
@@ -26,7 +31,6 @@ const US_STATES = [
 ]
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const supabase = await createClient()
 
   // ── Static pages ──────────────────────────────────────────────
   const staticPages: MetadataRoute.Sitemap = [
@@ -101,7 +105,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   for (const row of cityData ?? []) {
     const key = `${row.state}-${row.city}`
     if (!uniqueCities.has(key)) {
-      uniqueCities.set(key, row)
+      uniqueCities.set(key, { city: row.city!, state: row.state! })
     }
   }
 
