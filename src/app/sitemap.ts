@@ -46,7 +46,7 @@ async function fetchAllClinics<T extends Record<string, unknown>>(
       .range(offset, offset + PAGE_SIZE - 1)
 
     if (!data || data.length === 0) break
-    allRows.push(...(data as T[]))
+    allRows.push(...(data as unknown as T[]))
     if (data.length < PAGE_SIZE) break
     offset += PAGE_SIZE
   }
