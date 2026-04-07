@@ -118,7 +118,6 @@ export async function getClinicCount() {
   const { count, error } = await supabase
     .from('clinics')
     .select('*', { count: 'exact', head: true })
-    .eq('is_iv_clinic', true)
 
   if (error) {
     console.error('Error getting clinic count:', error)
