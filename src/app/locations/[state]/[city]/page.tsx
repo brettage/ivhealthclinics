@@ -43,25 +43,30 @@ export default async function CityPage({
   const cityName = unslugify(city)
 
   const supabase = await createClient()
-  const { data: clinics } = await supabase
-    .from('clinics')
-    .select('*')
-    .ilike('state', stateAbbr)
-    .ilike('city', cityName)
-    .eq('is_iv_clinic', true)
-    .order('rating_value', { ascending: false, nullsFirst: false })
 
-  // Also try without is_iv_clinic filter if no results
-  let allClinics = clinics || []
-  if (allClinics.length === 0) {
-    const { data: fallback } = await supabase
+  const PAGE_SIZE = 1000
+  const allClinics: any[] = []
+  let offset = 0
+  while (true) {
+    const { data, error } = await supabase
       .from('clinics')
       .select('*')
       .ilike('state', stateAbbr)
       .ilike('city', cityName)
+      .eq('is_iv_clinic', true)
+      .eq('enrichment_status', 'enriched')
+      .is('duplicate_of', null)
       .order('rating_value', { ascending: false, nullsFirst: false })
+      .range(offset, offset + PAGE_SIZE - 1)
 
-    allClinics = fallback || []
+    if (error) {
+      console.error('Error fetching city clinics:', error)
+      break
+    }
+    if (!data || data.length === 0) break
+    allClinics.push(...data)
+    if (data.length < PAGE_SIZE) break
+    offset += PAGE_SIZE
   }
 
   return (
