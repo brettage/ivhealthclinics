@@ -483,12 +483,27 @@ Handles: medical abbreviations (MD, DO, NP, LLC, IV, RN), roman numerals, name p
 
 ## Project Status
 
-**Version**: 0.1.0
-**Status**: Pre-development
-**Last Updated**: March 19, 2026
+**Version**: 0.2.0
+**Status**: Live — SEO foundation complete, data enrichment next
+**Last Updated**: March 24, 2026
 
 ### Completed ✅
-- (nothing yet — project kickoff)
+- Site live at ivhealthclinics.com (Vercel + custom domain)
+- 4,651 clinic listings in database (216 confirmed IV providers)
+- Homepage, search, location pages, clinic profiles deployed
+- DNS configured (Vercel nameservers)
+- Google Analytics GA4 (`G-4ZW806CWHT`) tracking live
+- Google Search Console configured, sitemap submitted
+- XML sitemap at `/sitemap.xml` (all 4,651 clinics, paginated queries)
+- `robots.txt` at `/robots.txt`
+- Schema.org JSON-LD on all clinic detail pages (`HealthAndBeautyBusiness` + `LocalBusiness`)
+- Open Graph + Twitter Card meta tags with default image (`/og-default.png`)
+- `generateMetadata()` with canonical URLs on clinic detail pages
+
+### Next Up
+- Phase 3: Data Enrichment (Google Places API + website crawling)
+- Phase 4: Content & Legal pages (about, privacy, terms, guides)
+- Phase 5: Email infrastructure (Resend + ImprovMX)
 
 ### Operated By
 **Ten After Ten Group LLC**

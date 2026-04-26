@@ -2,12 +2,25 @@
 
 import { createClient } from '@/lib/supabase/server'
 
+/**
+ * Standard "directory-visible" filter applied to all consumer-facing queries.
+ * Excludes:
+ *   - non-IV NPI rows (is_iv_clinic = false)
+ *   - rejected/no_match/duplicate enrichment statuses
+ *   - NPI rows consolidated into another canonical row
+ */
+function applyVisibilityFilters<Q extends { eq: any; is: any }>(q: Q): Q {
+  return q
+    .eq('is_iv_clinic', true)
+    .eq('enrichment_status', 'enriched')
+    .is('duplicate_of', null)
+}
+
 export async function getFeaturedClinics(limit = 6) {
   const supabase = await createClient()
-  const { data, error } = await supabase
-    .from('clinics')
-    .select('*')
-    .eq('is_iv_clinic', true)
+  const q = applyVisibilityFilters(supabase.from('clinics').select('*'))
+  const { data, error } = await q
+    .order('rating_count', { ascending: false, nullsFirst: false })
     .order('rating_value', { ascending: false, nullsFirst: false })
     .limit(limit)
 
@@ -51,10 +64,7 @@ export async function searchClinics({
   limit?: number
 }) {
   const supabase = await createClient()
-  let q = supabase
-    .from('clinics')
-    .select('*')
-    .eq('is_iv_clinic', true)
+  let q = applyVisibilityFilters(supabase.from('clinics').select('*'))
 
   if (query) {
     q = q.or(`name.ilike.%${query}%,city.ilike.%${query}%`)
@@ -86,22 +96,37 @@ export async function searchClinics({
   return data || []
 }
 
+/**
+ * Returns city-level clinic counts for a state, paginating to bypass
+ * Supabase's 1,000-row default limit. Visible-clinics only.
+ */
 export async function getClinicsByState(state: string) {
   const supabase = await createClient()
-  const { data, error } = await supabase
-    .from('clinics')
-    .select('city')
-    .eq('is_iv_clinic', true)
-    .ilike('state', state)
 
-  if (error) {
-    console.error('Error fetching state clinics:', error)
-    return []
+  const PAGE_SIZE = 1000
+  const allRows: Array<{ city: string | null }> = []
+  let offset = 0
+
+  while (true) {
+    const q = applyVisibilityFilters(
+      supabase.from('clinics').select('city').ilike('state', state)
+    )
+    const { data, error } = await q.range(offset, offset + PAGE_SIZE - 1)
+
+    if (error) {
+      console.error('Error fetching state clinics:', error)
+      return []
+    }
+    if (!data || data.length === 0) break
+
+    allRows.push(...(data as Array<{ city: string | null }>))
+    if (data.length < PAGE_SIZE) break
+    offset += PAGE_SIZE
   }
 
   // Group by city and count
   const cityMap = new Map<string, number>()
-  data?.forEach((row) => {
+  allRows.forEach((row) => {
     if (row.city) {
       const city = row.city
       cityMap.set(city, (cityMap.get(city) || 0) + 1)
@@ -113,11 +138,16 @@ export async function getClinicsByState(state: string) {
     .sort((a, b) => b.count - a.count)
 }
 
+/**
+ * Counts directory-visible clinics only (not all rows in clinics table).
+ * Used for homepage stat. Previously returned total table size including
+ * non-IV NPI rows, rejected rows, and duplicates.
+ */
 export async function getClinicCount() {
   const supabase = await createClient()
-  const { count, error } = await supabase
-    .from('clinics')
-    .select('*', { count: 'exact', head: true })
+  const { count, error } = await applyVisibilityFilters(
+    supabase.from('clinics').select('*', { count: 'exact', head: true })
+  )
 
   if (error) {
     console.error('Error getting clinic count:', error)

@@ -12,16 +12,38 @@ export const metadata: Metadata = {
 export default async function LocationsPage() {
   const supabase = await createClient()
 
-  // Get clinic counts per state
-  const { data } = await supabase
-    .from('clinics')
-    .select('state')
-    .eq('is_iv_clinic', true)
+  // Paginate to bypass Supabase's default 1,000-row limit (same pattern as sitemap)
+  // We only need the `state` column, and we filter to visible-in-directory clinics:
+  //   - is_iv_clinic = true (semantic IV clinic flag)
+  //   - enrichment_status = 'enriched' (excludes rejected/duplicate/no_match rows)
+  //   - duplicate_of IS NULL (excludes consolidated NPI duplicates)
+  // We don't filter on match_confidence here because address_only rows are still
+  // counted toward state coverage even though they're hidden on individual pages.
+  const PAGE_SIZE = 1000
+  const allRows: Array<{ state: string | null }> = []
+  let offset = 0
+
+  while (true) {
+    const { data, error } = await supabase
+      .from('clinics')
+      .select('state')
+      .eq('is_iv_clinic', true)
+      .eq('enrichment_status', 'enriched')
+      .is('duplicate_of', null)
+      .range(offset, offset + PAGE_SIZE - 1)
+
+    if (error || !data || data.length === 0) break
+
+    allRows.push(...(data as Array<{ state: string | null }>))
+    if (data.length < PAGE_SIZE) break
+    offset += PAGE_SIZE
+  }
 
   const stateCounts = new Map<string, number>()
-  data?.forEach((row) => {
+  allRows.forEach((row) => {
     if (row.state) {
-      stateCounts.set(row.state.toUpperCase(), (stateCounts.get(row.state.toUpperCase()) || 0) + 1)
+      const key = row.state.toUpperCase()
+      stateCounts.set(key, (stateCounts.get(key) || 0) + 1)
     }
   })
 

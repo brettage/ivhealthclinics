@@ -39,3 +39,15 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Runtime artifacts from data pipeline scripts
+brave_enrich_checkpoint.json
+brave_enrich_results.jsonl
+brave_review.csv
+scripts/google_places_misses.log
+scripts/google_places_address_only.log
+scripts/google_places_errors.log
+scripts/google_places_duplicates.log
+
+# IDE
+.idea/
