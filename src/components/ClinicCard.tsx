@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { Clinic, formatPriceRange, careSettingLabel, serviceTypeLabel } from '@/types/clinic'
+import ClinicBadges from '@/components/ClinicBadges'
 
 export default function ClinicCard({ clinic }: { clinic: Clinic }) {
   const priceDisplay = formatPriceRange(clinic.price_range_min, clinic.price_range_max)
@@ -25,7 +26,7 @@ export default function ClinicCard({ clinic }: { clinic: Clinic }) {
           </p>
         )}
 
-        {/* Badges */}
+        <ClinicBadges clinic={clinic} size="sm" className="mt-2" />
         <div className="flex flex-wrap gap-1.5 mt-3">
           {clinic.verified && (
             <span className="inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium bg-green-50 text-green-700 rounded-full border border-green-200">
@@ -35,14 +36,7 @@ export default function ClinicCard({ clinic }: { clinic: Clinic }) {
               Verified
             </span>
           )}
-          {clinic.mobile_service_available && (
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium bg-cyan-50 text-cyan-700 rounded-full border border-cyan-200">
-              <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H18.75m-7.5-2.25h7.5m-7.5 0v2.25m0-2.25H7.5" />
-              </svg>
-              Mobile
-            </span>
-          )}
+
           {clinic.care_setting && (
             <span className="px-2 py-0.5 text-xs font-medium bg-gray-50 text-gray-600 rounded-full border border-gray-200">
               {settingDisplay}

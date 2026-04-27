@@ -2,9 +2,22 @@
 
 Instructions for Claude Code when working on the IVHealthClinics project.
 
+**Last updated:** April 27, 2026 (post-Phase-3 — data enrichment complete)
+
 ## Project Overview
 
 IVHealthClinics (ivhealthclinics.com) is a directory for IV hydration, vitamin drips, and infusion wellness clinics. Built with Next.js 16, TypeScript, Tailwind CSS 4, and Supabase. Sister site to hormonemap.com.
+
+## Current State (as of 2026-04-27)
+
+**Phase 3 (Data + Infrastructure) is COMPLETE.** Next phase is Product, SEO, and Traffic.
+
+- **8,191 total clinics** in DB (4,651 NPI seed + 3,540 Google Places discovered)
+- **~2,950 directory-visible IV clinics** after enrichment + quality filtering
+- **~2,945 websites crawled** (Crawl4AI + Claude Haiku) for IV-specific field extraction
+- **645 non-IV businesses demoted** during quality cleanup
+- Avg rating 4.9 / ~140 reviews
+- Data quality: 64%+ have services, 63%+ have care setting, ~19% mobile, ~13% pricing
 
 ## Commands
 
@@ -22,7 +35,7 @@ git push             # Auto-deploys to Vercel
 - **Styling**: Tailwind CSS 4
 - **Email**: Resend (transactional) + ImprovMX (forwarding)
 - **Hosting**: Vercel (auto-deploy on push to main)
-- **Analytics**: Google Analytics GA4
+- **Analytics**: Google Analytics GA4 — `G-4ZW806CWHT`
 
 ## File Structure
 
@@ -44,11 +57,13 @@ Main clinic information table with IV-therapy-specific fields.
 
 **Basic Information:**
 ```sql
-id (uuid), name (text), slug (text, unique), description (text),
+id (uuid), name (text), slug (text, unique, NOT NULL), description (text),
 address (text), city (text), state (text), zip (text),
 phone (text), website (text), verified (boolean),
 mobile_service_available (boolean), created_at, updated_at
 ```
+
+⚠️ **`slug` is NOT NULL** — every INSERT into `clinics` MUST include a slug. Migrations that forget this fail silently.
 
 **IV-Specific Fields:**
 ```sql
@@ -73,32 +88,21 @@ is_iv_clinic              -- boolean
 latitude, longitude, hours_of_operation (jsonb), rating_value, rating_count
 ```
 
-**Google Places Enrichment Fields (added 2026-04-24):**
+**Phase 3 columns (added during Google Places merge):**
 ```sql
-google_place_id        TEXT UNIQUE       -- idempotent enrichment key
-google_photo_refs      JSONB             -- array of Places photo resource names
-business_status        TEXT              -- OPERATIONAL / CLOSED_TEMPORARILY / CLOSED_PERMANENTLY
-duplicate_of           UUID REFERENCES clinics(id)  -- canonical row when this is an NPI duplicate
-enrichment_status      TEXT              -- enriched | duplicate_of_canonical | rejected_wrong_business | no_google_match | NULL
-match_confidence       TEXT              -- high | medium | low | address_only | NULL
+source                -- 'npi' | 'google_places'
+enrichment_status     -- 'enriched' | 'unenriched' | 'rejected_quality' | etc.
+match_confidence      -- 'high' | 'medium' | 'low' | 'address_only'
+google_place_id       -- text
+google_photo_refs     -- text[]
+business_status       -- text
+duplicate_of          -- uuid (FK to clinics.id, null if not a duplicate)
 ```
 
-Indexes for enrichment columns:
-```sql
-idx_clinics_google_place_id (partial WHERE NOT NULL)
-idx_clinics_google_place_id_unique (partial UNIQUE WHERE NOT NULL)
-idx_clinics_duplicate_of (partial WHERE NOT NULL)
-idx_clinics_enrichment_status (partial WHERE NOT NULL)
-idx_clinics_match_confidence (partial WHERE NOT NULL)
-```
+⚠️ These new columns may not be in generated Supabase types yet — use `as any` cast or `data as unknown as T[]` until types are regenerated.
 
-**Frontend filtering rule for directory display:**
-```sql
-WHERE enrichment_status = 'enriched'
-  AND match_confidence IN ('high', 'medium', 'low')
-  AND duplicate_of IS NULL
--- 'address_only' rows are hidden until Phase 3.2 crawl verifies clinic type
-```
+#### `places_discovery`
+Staging table for Google Places API results before merge to `clinics`. All ~3,888 rows now marked `merged` / `rejected_quality` / `skipped_duplicate` (no pending).
 
 #### `clinic_services`
 Detailed drip menu: clinic_id, service_type, price_cents, duration_minutes, description
@@ -106,26 +110,10 @@ Detailed drip menu: clinic_id, service_type, price_cents, duration_minutes, desc
 #### `leads`
 Lead capture: clinic_id, first_name, last_name, email, phone, message, source, status
 
-#### `places_discovery` (added 2026-04-24)
-
-Google Places-sourced clinic discovery staging table. Separate from `clinics` during pilot phase. Will merge into `clinics` after validation.
-
-Columns: `google_place_id` (unique), `name`, `formatted_address`, `latitude`, `longitude`, `street_address`, `city`, `state`, `zip`, `phone`, `website`, `business_status`, `rating_value`, `rating_count`, `primary_type`, `types` (jsonb), `discovered_via_keyword`, `discovered_via_city`, `discovered_at`, `merge_status` (default 'pending'), `merged_into_clinic_id`, `reviewed_at`, `notes`.
-
-RLS enabled, no public policies = service role access only.
-
-#### `discovery_runs` (added 2026-04-24)
-
-Audit table for Places discovery searches. One row per (keyword, city) pair attempted. Used for resumability and cost tracking.
-
-Columns: `run_id`, `keyword`, `city_name`, `city_lat`, `city_lng`, `radius_m`, `results_count`, `inserted_count`, `skipped_count`, `api_status`, `error_message`, `completed_at`.
-
 ### Important Notes
 - `hours_of_operation` is `jsonb` → access with `as any` cast
 - Use `createServiceClient()` for ALL write operations (bypasses RLS)
 - Prices stored in cents (multiply display values by 100)
-- `is_iv_clinic` may not be in generated Supabase types yet → use `as any` cast
-- New 2026-04-24 columns may need types regenerated → use `as any` cast in TypeScript
 
 ## Supabase Clients
 
@@ -141,6 +129,58 @@ const supabase = createServiceClient()  // No await needed
 
 ⚠️ Using anon key for writes will silently fail. Always use service role.
 
+## ⚠️ CRITICAL: Supabase 1,000-Row Default Limit
+
+**Supabase silently caps every `.select()` at 1,000 rows.** This bug bit `/locations`, `/services`, `/mobile-iv`, `/compare`, and `/search` after the Phase 3 merge made the dataset large enough to hit the limit. All have been fixed — but **any new aggregation query must paginate via `.range()`**.
+
+### Standard pagination pattern (use everywhere)
+
+```typescript
+const PAGE_SIZE = 1000
+const allRows: Array<{ /* relevant cols */ }> = []
+let offset = 0
+
+while (true) {
+  const { data, error } = await supabase
+    .from('clinics')
+    .select('your_columns')
+    .eq('is_iv_clinic', true)
+    .eq('enrichment_status', 'enriched')
+    .is('duplicate_of', null)
+    // ... other filters
+    .range(offset, offset + PAGE_SIZE - 1)
+
+  if (error || !data || data.length === 0) break
+  allRows.push(...(data as any))
+  if (data.length < PAGE_SIZE) break
+  offset += PAGE_SIZE
+}
+```
+
+### Standard "directory-visible" filter triple
+
+Use these three filters together on every public-facing aggregation query:
+
+```typescript
+.eq('is_iv_clinic', true)
+.eq('enrichment_status', 'enriched')
+.is('duplicate_of', null)
+```
+
+Optionally add `.in('match_confidence', ['high', 'medium', 'low'])` to exclude `address_only` confidence rows.
+
+### Files using this pattern (verified working)
+- `src/app/sitemap.ts`
+- `src/app/locations/page.tsx`
+- `src/app/locations/[state]/page.tsx`
+- `src/app/locations/[state]/[city]/page.tsx`
+- `src/app/services/page.tsx`
+- `src/app/services/[type]/page.tsx`
+- `src/app/mobile-iv/page.tsx`
+- `src/app/compare/page.tsx`
+- `src/app/search/page.tsx`
+- `src/app/actions/clinics.ts` (`getClinicsByState`, etc.)
+
 ## TypeScript Patterns
 
 ```typescript
@@ -148,11 +188,16 @@ const supabase = createServiceClient()  // No await needed
 (clinic.hours_of_operation as any).openNow
 (clinic.hours_of_operation as any).weekdayDescriptions
 
-// is_iv_clinic (until types are regenerated)
+// is_iv_clinic and other Phase 3 columns (until types are regenerated)
 (clinic as any).is_iv_clinic
+(clinic as any).enrichment_status
+(clinic as any).duplicate_of
 
 // Sitemap client
 const supabase = await createClient()  // ✅ Must await
+
+// Bulk casting Supabase response
+const rows = data as unknown as Clinic[]
 ```
 
 ## tsconfig.json
@@ -188,6 +233,20 @@ b12-shots → /services/b12-shots
 glutathione → /services/glutathione
 ```
 
+## Ranking / Sort Score (Priority 1 — to implement)
+
+Default sort on every listing page should use a quality score that surfaces complete listings first:
+
+```
+score = (price_range_min not null ? 3 : 0)
+      + (service_types.length >= 3 ? 2 : 0)
+      + (care_setting not null ? 2 : 0)
+      + (mobile_service_available ? 2 : 0)
+      + (rating_value * log10(rating_count + 1))
+```
+
+Sort desc by score on `/clinics`, `/locations/[state]`, `/locations/[state]/[city]`, `/services/[type]`, etc.
+
 ## SEO
 
 ### Implemented ✅
@@ -197,12 +256,20 @@ glutathione → /services/glutathione
 - Schema.org: `HealthAndBeautyBusiness` + `LocalBusiness` JSON-LD on clinic pages
   - Helper: `src/lib/schema-org.ts` → `generateClinicSchema(clinic)`
   - Injected via `<script type="application/ld+json">` in `src/app/clinics/[slug]/page.tsx`
-- Sitemap: `src/app/sitemap.ts` → `/sitemap.xml` (paginated, all 4,651 clinics)
+- Sitemap: `src/app/sitemap.ts` → `/sitemap.xml` (paginated, all directory-visible clinics)
   - Uses direct `@supabase/supabase-js` client (NOT cookie-based `@/lib/supabase/server`)
   - Paginates in batches of 1,000 via `.range()` to bypass Supabase default limit
 - Robots: `src/app/robots.ts` → `/robots.txt`
 - Google Analytics: `G-4ZW806CWHT` via `src/components/GoogleAnalytics.tsx`
 - Google Search Console: configured, sitemap submitted
+
+### Outstanding ⬜
+- Verify `alternates.canonical` on all dynamic page types (state, city, service)
+- Custom favicon + apple-touch-icon (180×180) + 192/512 PWA icons
+- Confirm Search Console sees ~3,000 updated URLs after Phase 3 merge
+- Unique 150–200 word intros for top 25 city pages
+- Unique intros for top 10 service pages
+- Hybrid SEO routes need depth: `/services/nad-plus/florida`, `/mobile-iv/florida`, `/services/hydration/miami`
 
 ### Sitemap Note
 The sitemap **cannot** use `createClient` from `@/lib/supabase/server` because that calls `cookies()` which fails at Vercel build time. Instead it imports `createClient` directly from `@supabase/supabase-js`.
@@ -210,6 +277,8 @@ The sitemap **cannot** use `createClient` from `@/lib/supabase/server` because t
 ## Email Flow
 
 Form submit → `createLead()` → Supabase (service role) → Resend notification → ImprovMX → info@tenafterten.com
+
+⬜ "Request Info" button on clinic detail pages — not yet implemented (Priority 4)
 
 ## Python Scripts
 
@@ -220,168 +289,45 @@ from pathlib import Path
 load_dotenv(Path(__file__).parent.parent / '.env.local')
 ```
 
-Env var names for Python: `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `ANTHROPIC_API_KEY`, `GOOGLE_PLACES_API_KEY`
+Env var names for Python: `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `ANTHROPIC_API_KEY`
+
+## Phase 3 Pipeline (completed — for reference)
+
+The data pipeline that built the current dataset, in order:
+
+1. **NPI seed** → `scripts/seed-npi.ts` → 4,651 raw clinic candidates from NPPES
+2. **Brave Search URL enrichment** → ~5,400 clinics searched, ~1,236 verified URLs kept (Brave paid plan, ~$23 total). Aggressive aggregator/NPI-lookup domain filtering required.
+3. **Google Places discovery** → 34 metros × 5 keywords gap-fill run (~$5.44) → 3,888 rows in `places_discovery` after dedup
+4. **Schema migration** → added `source`, `enrichment_status`, `match_confidence`, `google_place_id`, `google_photo_refs`, `business_status`, `duplicate_of`. Backfilled NPI rows with `source='npi'`. Inline slug generation needed during merge INSERTs.
+5. **Merge places_discovery → clinics** → 3,540 high/medium-confidence rows merged, 330 quality-dropped, 19 overlap-skipped
+6. **Noise filter** → demoted 96 false positives (urgent cares, hospitals, ERs, Whole Foods, vet hospital, Canadian clinic) by name pattern matching
+7. **Crawl4AI + Claude Haiku extraction** → ~2,945 websites crawled for service_types, care_setting, supervision_level, pricing, credentials
+8. **Quality cleanup** → 645 non-IV businesses demoted based on crawled content
+9. **Final state** → ~2,950 verified, directory-visible IV clinics
 
 ## Key Differences from HormoneMap
-- Primary data source: Google Places (not NPI) — pivoted 2026-04-24 after NPI ceiling discovered
-- Key filter: service_types (not modalities)
-- Care model: care_setting (in_clinic/mobile_only/both) instead of telehealth
-- Safety fields: sterile_compounding, ingredient_sourcing, adverse_event_policy
-- Schema.org: HealthAndBeautyBusiness (not MedicalBusiness)
+- Primary data source: Google Places (not NPI). NPI was tried first but yielded only ~3.3% directory-relevant results vs Places' ~99%.
+- Key filter: `service_types` (not modalities)
+- Care model: `care_setting` (in_clinic/mobile_only/both) instead of telehealth
+- Safety fields: `sterile_compounding`, `ingredient_sourcing`, `adverse_event_policy`
+- Schema.org: `HealthAndBeautyBusiness` (not `MedicalBusiness`) — wellness, not medical
 
----
+## Critical Session Learnings (Phase 3)
 
-## Phase 3.1 — Google Places Enrichment (Complete, 2026-04-24)
+1. **Supabase 1,000-row limit** — silent truncation, must `.range()`-paginate every aggregation. See pattern above.
+2. **`clinics.slug` is NOT NULL** — any INSERT must include slug; generate inline during migrations.
+3. **Google Places has ~3% noise** — even with location bias and "IV therapy" keyword. Filter by name patterns post-merge.
+4. **NPI is consumer-mismatched for wellness directories** — Places yields 30× better directory relevance.
+5. **Brave Search free plan caps at 2,000/month** — 429 errors continue even after waiting; new key under paid plan required (free key doesn't inherit paid quota).
+6. **Run SQL directly in Supabase Dashboard** for migrations rather than through Claude Code — fewer surprises.
+7. **Always commit `package.json` + `package-lock.json` together** — Vercel won't see new deps otherwise.
+8. **Sitemap must use direct `@supabase/supabase-js`** — `cookies()` is unavailable at Vercel build time.
 
-Enriched `is_iv_clinic=true` rows with Google Places data: ratings, reviews, hours, photos, lat/lng, business_status.
+## Documentation Files
 
-**Final scorecard (216 IV-flagged clinics):**
-
-| Status | Count | % | Visible in directory? |
-|---|---|---|---|
-| Enriched (high confidence) | 5 | 2% | ✅ |
-| Enriched (medium) | 117 | 54% | ✅ |
-| Enriched (low — zip tiebreaker) | 10 | 5% | ✅ |
-| Enriched (address_only) | 22 | 10% | ❌ Hidden until crawl verifies |
-| Rejected (wrong business) | 46 | 21% | ❌ |
-| Duplicate of canonical | 9 | 4% | ❌ |
-| No Google match | 7 | 3% | ❌ |
-
-Total cost: ~$3 across v1-v5 iterations of the script.
-
-**Key script:** `scripts/enrich_google_places.py` (v5 final).
-
-### v5 enrichment logic — match decision matrix
-
-```
-name_score >= 0.60  +  zip match       → ACCEPT (high confidence)
-name_score >= 0.60  +  city match      → ACCEPT (medium confidence)
-name_score 0.40-0.60 + zip match       → ACCEPT (low confidence)
-street_address_match (digit + name)    → ACCEPT (address_only — hidden tier)
-collision + name_sim ≥ 0.60 to owner   → MARK duplicate_of_canonical
-collision + name_sim < 0.60 to owner   → MARK no_google_match
-everything else                        → REJECT
-```
-
-### Critical learnings (enrichment)
-
-1. **Google Places Text Search returns "best guess in area" when queried entity doesn't exist**, not null. Produces plausible-looking false matches on chain names. Defense: name + address scoring with multiple thresholds.
-
-2. **Name fuzzy matching alone fails ~60% of NPI-seeded clinics** due to corporate suffix (LLC/PC/PLLC) noise, DBA names, and chain variations. Solution: `normalize_name()` strips suffixes + token overlap scoring (60% sequence + 40% token overlap).
-
-3. **Street address tiebreaker** for borderline scores: extract first comma-separated portion of `formattedAddress`, normalize both sides (strip suite/unit, expand abbreviations), require ≥0.80 similarity AND matching street number. Catches "NPI-registered service inside larger medical practice" cases.
-
-4. **Collision on unique `google_place_id` constraint has TWO meanings**:
-   - Real NPI duplicate: same business under different legal entity registrations
-   - Unfindable clinic: query keeps hitting same popular chain that's already claimed
-   - Disambiguate via name similarity between failing and owner rows (threshold 0.60)
-
-5. **NPI ≠ consumer brand.** ~30-40% of NPI-registered IV clinics don't have Google Business Profiles under their legal name. Wellness IV clinics often operate under marketing DBAs (Prime IV, Restore, Drip Hydration) while NPI records the legal LLC. **This is the key insight that triggered the strategy pivot.**
-
-6. **NPI keyword expansion has a hard ceiling.** Tested expanding `is_iv_clinic` flag via keywords (rejuven, NAD, vitality, etc.) on the 4,435 non-flagged pool. Result: 107 candidates, **zero confirmed IV clinics** in random samples. NPI data does not contain consumer wellness IV brands under findable names. Don't waste time on NPI keyword expansion in future projects.
-
-### Confidence tier semantics
-
-- **high** — confident name match (≥0.60) AND zip match. Trust fully.
-- **medium** — confident name match (≥0.60) AND city match (no zip match). Trust mostly. (Note: 116 rows backfilled to medium from v1/v2 runs that didn't record reason.)
-- **low** — weak name match (0.40-0.60) saved by zip tiebreaker. Spot-check before trusting.
-- **address_only** — addresses match but business names differ. Hide from directory until Phase 3.2 crawl verifies clinic type. Often "infusion service inside larger medical practice" — could be wellness IV (rebrand) or medical infusion (not directory-fit).
-
----
-
-## Phase 3 — Google Places Discovery (Strategic Pivot, Complete 2026-04-24)
-
-After NPI seeding hit its ceiling at 154 directory-ready clinics, pivoted to bottom-up discovery via Google Places Text Search across 100 US metros + 5 keywords.
-
-**Result: 3,296 unique IV businesses discovered for $15.84.**
-
-### Run parameters (final)
-
-- **100 US metropolitan statistical areas** by population, principal city as anchor
-- **5 keywords**: `IV therapy`, `IV hydration`, `mobile IV`, `NAD infusion`, `vitamin drip`
-- **25km location bias radius** per metro
-- **MaxResultCount: 20** per search (Places API max)
-- **Search-only** (no Details API) — pilot proved search response has all signals needed: phone, website, ratings, reviews, business_status, address components, lat/lng
-- **Resumability** via `discovery_runs` audit table — skips completed (keyword, city) pairs on re-runs
-- **Hard cost cap: 600 searches** (~$19) — abort safety net
-
-### Quality metrics (3,296 discovered clinics)
-
-- **100% operational** (zero closed businesses)
-- **97% have website** (3,195 / 3,296)
-- **92% have 5+ reviews** (3,023 / 3,296)
-- **87% have 10+ reviews** (2,870 / 3,296)
-- **60% have 50+ reviews** (1,971 / 3,296)
-- **Average rating: 4.88**
-- **Only 3% have zero reviews** (93 / 3,296)
-- **Only 16 / 3,296 (0.5%) overlap** with existing NPI-enriched `clinics.google_place_id` — Places and NPI find fundamentally different universes
-
-### Key scripts
-
-- `scripts/discover_google_places_full.py` — full-scale discovery runner with resumability
-- `scripts/discover_google_places.py` — pilot (5 cities × 3 keywords) for cheap validation
-
-### Critical learnings (discovery)
-
-1. **Places search-only returns enough data for directory display.** No need for Place Details API calls. Search response includes: id, displayName, formattedAddress, addressComponents, location, nationalPhoneNumber, websiteUri, rating, userRatingCount, businessStatus, primaryType, types. Saves ~50% of API cost.
-
-2. **20-result cap fires on most metro+keyword pairs.** Means we're getting top-ranked results, leaving long-tail clinics undiscovered. Geographic gap-fill (smaller metros, suburb-anchored searches) recovers more.
-
-3. **Keyword diversity is crucial.** `IV therapy` alone returned ~60% of unique clinics. The other 4 keywords each contribute distinct subcategories:
-   - `NAD infusion` → 13% (premium NAD+ clinics)
-   - `IV hydration` → 13% (alternative phrasing, partial overlap)
-   - `vitamin drip` → 9% (drip-bar branding)
-   - `mobile IV` → 5% (mobile/concierge service type)
-   
-   Each keyword pulled its weight.
-
-4. **Resumability via audit table is essential** for runs of this scale. The `discovery_runs` table logs each completed (keyword, city) pair with `api_status='success'`. On any re-run, completed pairs are skipped automatically.
-
-5. **Geographic distribution surprises**: TN (122), SC (105), UT (75), AR (62) all over-indexed. CA/FL/TX dominate by raw count due to multiple metros searched. NY (164) and IL (56) under-indexed because only 1-5 metros each — suggests gap-fill for suburb coverage would help.
-
-6. **Quality auto-filters via Google's ranking.** Since Places returns top-ranked results within the location bias, ghost listings and closed businesses are naturally suppressed. The 100% operational rate isn't filtering on our end — Places already deprioritizes those.
-
-### Cost economics
-
-- **Total Phase 3 session cost**: ~$19 (enrichment $3 + discovery $15.84)
-- **Per-clinic cost**: ~$0.005 for Places discovery
-- **NPI seeding produced**: 154 directory-ready clinics from 4,651 rows (3.3% yield)
-- **Places discovery produced**: 3,296 directory-quality clinics from 500 searches (~99% yield)
-
----
-
-## Scripts Inventory
-
-In `/scripts/`:
-- `enrich_google_places.py` — v5 final, enriches `clinics` rows with Google Places data
-- `discover_google_places.py` — pilot discovery (5 cities × 3 keywords)
-- `discover_google_places_full.py` — full discovery (100 cities × 5 keywords, resumable)
-
-Migrations (run via Supabase Dashboard → SQL Editor, all idempotent with `IF NOT EXISTS`):
-- `add_google_places_columns.sql`
-- `add_duplicate_tracking.sql`
-- `add_match_confidence.sql`
-- `create_places_discovery_table.sql`
-- `create_discovery_runs_table.sql`
-
-Log files (gitignored, generated per script run):
-- `scripts/google_places_misses.log`
-- `scripts/google_places_errors.log`
-- `scripts/google_places_duplicates.log`
-- `scripts/google_places_address_only.log`
-
----
-
-## Current Directory State (as of 2026-04-24)
-
-- 154 NPI-enriched IV clinics (visible) — `enrichment_status='enriched'`, `match_confidence IN ('high', 'medium', 'low')`
-- 22 NPI address_only matches (hidden) — pending Phase 3.2 verification
-- 3,296 Places-discovered clinics (in `places_discovery`, not yet merged)
-- **Projected post-merge directory: ~3,300-3,400 clinics**
-
-## Open Questions / Next Session Pickup
-
-1. **Quality filter for `places_discovery`** before merge — recommend 5+ reviews threshold (drops 273 rows → 3,023 final)
-2. **Merge strategy** — schema-extend `clinics` table with `source` column ('npi' | 'google_places' | 'manual'), make `npi` nullable, migrate `places_discovery` rows in
-3. **Geographic gap-fill** — optional ~$5 second-pass on 30 underrepresented suburban metros (defer until after merge)
-4. **Phase 3.2 — Website Crawling** — Crawl4AI + Claude Haiku extraction of service types, pricing, supervision level, etc. Estimated cost: $150-300 for ~3,000 clinics.
+- **CLAUDE.md** — HormoneMap reference (sister site, mostly complete)
+- **CLAUDE2.md** — this file, IVHealthClinics technical reference
+- **IVHEALTHCLINICS_ROADMAP.md** — phase-by-phase forward roadmap
+- **IVHEALTHCLINICS_TODO_2026-04-27.md** — current priorities (latest TODO)
+- **IV_FIELDS_GUIDE.md** — IV-specific field extraction reference
+- **IVHEALTHCLINICS.md** — project-level overview

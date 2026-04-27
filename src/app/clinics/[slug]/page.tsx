@@ -5,6 +5,7 @@ import { careSettingLabel, supervisionLabel, serviceTypeLabel, formatPriceRange 
 import { generateClinicSchema } from '@/lib/schema-org'
 import ClinicCard from '@/components/ClinicCard'
 import type { Metadata } from 'next'
+import ClinicBadges from '@/components/ClinicBadges'
 
 export async function generateMetadata({
   params,
@@ -244,6 +245,7 @@ export default async function ClinicDetailPage({
                       {clinic.city && clinic.state && (
                         <p>{clinic.city}, {clinic.state} {clinic.zip}</p>
                       )}
+                      <ClinicBadges clinic={clinic} size="md" className="mt-3" />
                     </div>
                   </div>
                 )}
