@@ -2,7 +2,7 @@
 <module type="PYTHON_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$" />
-    <orderEntry type="jdk" jdkName="Python 3.11 virtualenv at ~/Library/Mobile Documents/com~apple~CloudDocs/Projects/NewsRewriter/.venv" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.11 virtualenv at ~/Library/Mobile Documents/com~apple~CloudDocs/Projects/NewsRewriter/newsrewriter_env" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

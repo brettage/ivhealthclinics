@@ -1,0 +1,391 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2869
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 HelveticaNeue-Bold;\f1\fnil\fcharset0 HelveticaNeue;\f2\fnil\fcharset0 AppleColorEmoji;
+\f3\fnil\fcharset0 Menlo-Regular;\f4\fswiss\fcharset0 Helvetica;\f5\fnil\fcharset0 LucidaGrande-Bold;
+\f6\fnil\fcharset0 LucidaGrande;}
+{\colortbl;\red255\green255\blue255;\red154\green154\blue154;}
+{\*\expandedcolortbl;;\csgray\c66667;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid1\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}
+{\list\listtemplateid2\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid101\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid2}
+{\list\listtemplateid3\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid201\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid3}
+{\list\listtemplateid4\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}.}{\leveltext\leveltemplateid301\'02\'00.;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid4}
+{\list\listtemplateid5\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}.}{\leveltext\leveltemplateid401\'02\'00.;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid5}
+{\list\listtemplateid6\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid501\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid6}
+{\list\listtemplateid7\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid601\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid7}
+{\list\listtemplateid8\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid701\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid8}
+{\list\listtemplateid9\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}.}{\leveltext\leveltemplateid801\'02\'00.;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid9}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}{\listoverride\listid3\listoverridecount0\ls3}{\listoverride\listid4\listoverridecount0\ls4}{\listoverride\listid5\listoverridecount0\ls5}{\listoverride\listid6\listoverridecount0\ls6}{\listoverride\listid7\listoverridecount0\ls7}{\listoverride\listid8\listoverridecount0\ls8}{\listoverride\listid9\listoverridecount0\ls9}}
+\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\deftab560
+\pard\pardeftab560\pardirnatural\partightenfactor0
+
+\f0\b\fs40 \cf0 handoff 4/25/26\
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\f1\b0\fs26 \cf0 \
+\pard\pardeftab560\partightenfactor0
+
+\f0\b\fs40 \cf0 IVHealthClinics \'97 Handoff Summary\
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\fs26 \cf0 Last update
+\f1\b0 : Saturday 2026-04-25, mid-session at ~95% context usage.\
+\pard\pardeftab560\sa40\partightenfactor0
+
+\f0\b\fs32 \cf0 TL;DR\
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\f1\b0\fs26 \cf0 Successfully merged 3,540 Google Places-discovered IV clinics into the live clinics table. Site renders with directory of 
+\f0\b 8,191 total clinics, 3,598 directory-visible
+\f1\b0 . Locations page query bug (1,000-row limit) discovered and fixed. Now finding and fixing the same bug pattern in other pages.\
+\
+******\
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\f0\b \cf0 Test more pages
+\f1\b0  \'97 /services, /mobile-iv, /compare likely have the same 1,000-row bug pattern. Use the same fix pattern from clinics.ts.\
+
+\f0\b Phase 3.2 prep
+\f1\b0  \'97 Plan website crawling: Crawl4AI + Claude Haiku to extract IV-specific fields (services, pricing, supervision). Estimated $150-300 for 3,540 clinics.\
+
+\f0\b Submit updated sitemap
+\f1\b0  \'97 Vercel sitemap should auto-update, but worth verifying in Search Console that Google sees the ~8,191 new URLs.\
+
+\f0\b The handoff doc
+\f1\b0  is in /mnt/user-data/outputs/HANDOFF_2026-04-25_session.md \'97 gives next session full context.\
+******\
+\
+\pard\pardeftab560\sa40\partightenfactor0
+
+\f0\b\fs32 \cf0 Where things stand RIGHT NOW\
+Database state 
+\f2\b0 \uc0\u9989 
+\f0\b \
+\pard\pardeftab560\pardirnatural\partightenfactor0
+\ls1\ilvl0
+\f3\b0\fs18 \cf0 {\listtext	\uc0\u8226 	}
+\f1\fs26 clinics total: 
+\f0\b 8,191
+\f1\b0  (4,651 NPI + 3,540 google_places)\
+\ls1\ilvl0
+\f3\fs18 {\listtext	\uc0\u8226 	}
+\f1\fs26 Directory-visible: 
+\f0\b 3,598
+\f1\b0  clinics across 45 states (filtered by enrichment_status='enriched' + duplicate_of IS NULL)\
+\ls1\ilvl0
+\f3\fs18 {\listtext	\uc0\u8226 	}
+\f1\fs26 places_discovery table: 3,888 rows, all marked merged/rejected/skipped (no pending)\
+\ls1\ilvl0
+\f3\fs18 {\listtext	\uc0\u8226 	}
+\f1\fs26 New schema columns (all nullable except where noted): source, enrichment_status, match_confidence, google_place_id, google_photo_refs, business_status, duplicate_of\
+\pard\pardeftab560\sa40\partightenfactor0
+
+\f0\b\fs32 \cf0 Source distribution\
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf2 \clbrdrl\brdrs\brdrw20\brdrcf2 \clbrdrb\brdrs\brdrw20\brdrcf2 \clbrdrr\brdrs\brdrw20\brdrcf2 \clpadt20 \clpadl100 \clpadb20 \clpadr100 \gaph\cellx2880
+\clvertalt \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf2 \clbrdrl\brdrs\brdrw20\brdrcf2 \clbrdrb\brdrs\brdrw20\brdrcf2 \clbrdrr\brdrs\brdrw20\brdrcf2 \clpadt20 \clpadl100 \clpadb20 \clpadr100 \gaph\cellx5760
+\clvertalt \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf2 \clbrdrl\brdrs\brdrw20\brdrcf2 \clbrdrb\brdrs\brdrw20\brdrcf2 \clbrdrr\brdrs\brdrw20\brdrcf2 \clpadt20 \clpadl100 \clpadb20 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab560\slleading20\qc\partightenfactor0
+
+\fs26 \cf0 source
+\f4\b0\fs24 \cell 
+\pard\intbl\itap1\pardeftab560\slleading20\qc\partightenfactor0
+
+\f0\b\fs26 \cf0 count
+\f4\b0\fs24 \cell 
+\pard\intbl\itap1\pardeftab560\slleading20\qc\partightenfactor0
+
+\f0\b\fs26 \cf0 enrichment_status
+\f4\b0\fs24 \cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf2 \clbrdrl\brdrs\brdrw20\brdrcf2 \clbrdrb\brdrs\brdrw20\brdrcf2 \clbrdrr\brdrs\brdrw20\brdrcf2 \clpadt20 \clpadl100 \clpadb20 \clpadr100 \gaph\cellx2880
+\clvertalt \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf2 \clbrdrl\brdrs\brdrw20\brdrcf2 \clbrdrb\brdrs\brdrw20\brdrcf2 \clbrdrr\brdrs\brdrw20\brdrcf2 \clpadt20 \clpadl100 \clpadb20 \clpadr100 \gaph\cellx5760
+\clvertalt \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf2 \clbrdrl\brdrs\brdrw20\brdrcf2 \clbrdrb\brdrs\brdrw20\brdrcf2 \clbrdrr\brdrs\brdrw20\brdrcf2 \clpadt20 \clpadl100 \clpadb20 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab560\slleading20\partightenfactor0
+
+\f1\fs26 \cf0 npi
+\f4\fs24 \cell 
+\pard\intbl\itap1\pardeftab560\slleading20\partightenfactor0
+
+\f1\fs26 \cf0 4,651
+\f4\fs24 \cell 
+\pard\intbl\itap1\pardeftab560\slleading20\partightenfactor0
+
+\f1\fs26 \cf0 mostly NULL (4,415 unenriched non-IV NPI rows), 117 enriched
+\f4\fs24 \cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf2 \clbrdrl\brdrs\brdrw20\brdrcf2 \clbrdrb\brdrs\brdrw20\brdrcf2 \clbrdrr\brdrs\brdrw20\brdrcf2 \clpadt20 \clpadl100 \clpadb20 \clpadr100 \gaph\cellx2880
+\clvertalt \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf2 \clbrdrl\brdrs\brdrw20\brdrcf2 \clbrdrb\brdrs\brdrw20\brdrcf2 \clbrdrr\brdrs\brdrw20\brdrcf2 \clpadt20 \clpadl100 \clpadb20 \clpadr100 \gaph\cellx5760
+\clvertalt \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf2 \clbrdrl\brdrs\brdrw20\brdrcf2 \clbrdrb\brdrs\brdrw20\brdrcf2 \clbrdrr\brdrs\brdrw20\brdrcf2 \clpadt20 \clpadl100 \clpadb20 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab560\slleading20\partightenfactor0
+
+\f1\fs26 \cf0 google_places
+\f4\fs24 \cell 
+\pard\intbl\itap1\pardeftab560\slleading20\partightenfactor0
+
+\f1\fs26 \cf0 3,540
+\f4\fs24 \cell 
+\pard\intbl\itap1\pardeftab560\slleading20\partightenfactor0
+
+\f1\fs26 \cf0 3,444 enriched (high+medium), 96 rejected (urgent care/hospital filter)\cell \lastrow\row
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+
+\f0\b\fs32 \cf0 Frontend state\
+\pard\pardeftab560\pardirnatural\partightenfactor0
+\ls2\ilvl0
+\f3\b0\fs18 \cf0 {\listtext	\uc0\u8226 	}
+\f2\fs26 \uc0\u9989 
+\f1  Homepage works \'97 shows 8,191 clinics\
+\ls2\ilvl0
+\f3\fs18 {\listtext	\uc0\u8226 	}
+\f2\fs26 \uc0\u9989 
+\f1  /locations works AFTER FIX (was 1,000-row truncated, now paginated)\
+\ls2\ilvl0
+\f3\fs18 {\listtext	\uc0\u8226 	}
+\f2\fs26 \uc0\u9888 \u65039 
+\f1  /locations/[state] \'97 about to investigate. Same bug suspected.\
+\ls2\ilvl0
+\f3\fs18 {\listtext	\uc0\u8226 	}
+\f1\fs26 Untested: /services, /mobile-iv, /compare, /search results pagination\
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 \
+\pard\pardeftab560\sa40\partightenfactor0
+
+\f0\b\fs32 \cf0 Active task right now\
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\fs26 \cf0 User just sent src/app/locations/[state]/page.tsx.
+\f1\b0  It calls getClinicsByState(stateAbbr) from @/app/actions/clinics. The bug is almost certainly in that action function \'97 same Supabase 1,000-row default limit pattern.\
+
+\f0\b Next step
+\f1\b0 : User needs to paste src/app/actions/clinics.ts so I can write the fix using the same pagination pattern as locations/page.tsx got.\
+\
+\pard\pardeftab560\sa40\partightenfactor0
+
+\f0\b\fs32 \cf0 The fix pattern (apply everywhere)\
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\f1\b0\fs26 \cf0 For any aggregation query across all clinics:\
+const PAGE_SIZE = 1000\
+const allRows: Array<\{ /* relevant cols */ \}> = []\
+let offset = 0\
+\
+while (true) \{\
+  const \{ data, error \} = await supabase\
+    .from('clinics')\
+    .select('your_columns')\
+    .eq('is_iv_clinic', true)\
+    .eq('enrichment_status', 'enriched')\
+    .is('duplicate_of', null)\
+    // ... other filters\
+    .range(offset, offset + PAGE_SIZE - 1)\
+\
+  if (error || !data || data.length === 0) break\
+  allRows.push(...(data as any))\
+  if (data.length < PAGE_SIZE) break\
+  offset += PAGE_SIZE\
+\}\
+Standard filter triple for "directory-visible" clinics:\
+\pard\pardeftab560\pardirnatural\partightenfactor0
+\ls3\ilvl0
+\f3\fs18 \cf0 {\listtext	\uc0\u8226 	}
+\f1\fs26 .eq('is_iv_clinic', true)\
+\ls3\ilvl0
+\f3\fs18 {\listtext	\uc0\u8226 	}
+\f1\fs26 .eq('enrichment_status', 'enriched')\
+\ls3\ilvl0
+\f3\fs18 {\listtext	\uc0\u8226 	}
+\f1\fs26 .is('duplicate_of', null)\
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 (Optional: .in('match_confidence', ['high', 'medium', 'low']) to exclude address_only)\
+\
+\pard\pardeftab560\sa40\partightenfactor0
+
+\f0\b\fs32 \cf0 Pages likely needing the fix\
+\pard\pardeftab560\pardirnatural\partightenfactor0
+\ls4\ilvl0
+\f1\b0\fs26 \cf0 {\listtext	0.	}
+\f0\b src/app/actions/clinics.ts 
+\f5 \uc0\u8594 
+\f0  getClinicsByState()
+\f1\b0  \'97 current focus\
+{\listtext	0.	}
+\f0\b /locations/[state]/[city]/page.tsx
+\f1\b0  \'97 city listing\
+{\listtext	0.	}
+\f0\b /services/page.tsx
+\f1\b0  \'97 service type aggregation\
+{\listtext	0.	}
+\f0\b /services/[type]/page.tsx
+\f1\b0  \'97 clinics offering a service\
+{\listtext	0.	}
+\f0\b /mobile-iv/page.tsx
+\f1\b0  \'97 filter on mobile_service_available\
+{\listtext	0.	}
+\f0\b /compare/page.tsx
+\f1\b0  \'97 selectable clinic list\
+{\listtext	0.	}
+\f0\b /search/page.tsx
+\f1\b0  \'97 currently shows results, likely truncated past 1,000\
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 Sitemap is already paginated per CLAUDE2.md, no fix needed there.\
+\
+\pard\pardeftab560\sa40\partightenfactor0
+
+\f0\b\fs32 \cf0 Today's completed work (chronological)\
+\pard\pardeftab560\pardirnatural\partightenfactor0
+\ls5\ilvl0
+\f1\b0\fs26 \cf0 {\listtext	0.	}
+\f2 \uc0\u9989 
+\f1  Verified places_discovery had 3,296 rows from Friday\
+{\listtext	0.	}
+\f2 \uc0\u9989 
+\f1  Quality filter decision: 5+ reviews\
+{\listtext	0.	}
+\f2 \uc0\u9989 
+\f1  Geographic gap-fill run: 34 metros \'d7 5 keywords = $5.44, 592 new clinics 
+\f6 \uc0\u8594 
+\f1  places_discovery now 3,888\
+{\listtext	0.	}
+\f2 \uc0\u9989 
+\f1  Schema migration step 1: added source column, backfilled NPI rows\
+{\listtext	0.	}
+\f2 \uc0\u9989 
+\f1  Migration dry-run: confirmed 3,540 rows ready, 330 quality-dropped, 19 overlap-skipped\
+{\listtext	0.	}
+\f2 \uc0\u9989 
+\f1  Migration v1 failed silently (clinics.slug NOT NULL)\
+{\listtext	0.	}
+\f2 \uc0\u9989 
+\f1  Migration v2 with inline slug generation: succeeded, 3,540 rows merged\
+{\listtext	0.	}
+\f2 \uc0\u9989 
+\f1  Marked places_discovery rows: merged/rejected_quality/skipped_duplicate\
+{\listtext	0.	}
+\f2 \uc0\u9989 
+\f1  Noise filter on Google Places rows: rejected 96 (urgent cares, hospitals, ERs, Whole Foods, vet hospital, Canadian clinic)\
+{\listtext	0.	}
+\f2 \uc0\u9989 
+\f1  Fired up npm run dev, site renders correctly\
+{\listtext	0.	}
+\f2 \uc0\u9989 
+\f1  Discovered locations page truncated at 1,000 rows\
+{\listtext	0.	}
+\f2 \uc0\u9989 
+\f1  Fixed src/app/locations/page.tsx with pagination \'97 now correctly shows 3,598 across 45 states\
+{\listtext	0.	}
+\f2 \uc0\u55357 \u56580 
+\f1  Investigating same bug in src/app/locations/[state]/page.tsx via getClinicsByState()\
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 \
+\pard\pardeftab560\sa40\partightenfactor0
+
+\f0\b\fs32 \cf0 Files saved to outputs this session\
+\pard\pardeftab560\pardirnatural\partightenfactor0
+\ls6\ilvl0
+\f3\b0\fs18 \cf0 {\listtext	\uc0\u8226 	}
+\f1\fs26 migration_step1_add_source.sql \'97 added source column, backfilled NPI rows\
+\ls6\ilvl0
+\f3\fs18 {\listtext	\uc0\u8226 	}
+\f1\fs26 migration_step3_merge.sql \'97 final merge migration with inline slug generation\
+\ls6\ilvl0
+\f3\fs18 {\listtext	\uc0\u8226 	}
+\f1\fs26 discover_google_places_gapfill.py \'97 gap-fill script (already executed)\
+\ls6\ilvl0
+\f3\fs18 {\listtext	\uc0\u8226 	}
+\f1\fs26 locations_page.tsx \'97 fixed locations index page\
+\ls6\ilvl0
+\f3\fs18 {\listtext	\uc0\u8226 	}
+\f1\fs26 IVHEALTHCLINICS_ROADMAP.md \'97 cleaned-up forward-looking roadmap\
+\ls6\ilvl0
+\f3\fs18 {\listtext	\uc0\u8226 	}
+\f1\fs26 TODO_2026-04-25.md \'97 today's TODO (mostly completed)\
+\ls6\ilvl0
+\f3\fs18 {\listtext	\uc0\u8226 	}
+\f1\fs26 CLAUDE2.md \'97 merged technical reference\
+\ls6\ilvl0
+\f3\fs18 {\listtext	\uc0\u8226 	}
+\f1\fs26 CLAUDE_session_addendum_2026-04-24.md \'97 Friday's session learnings (already merged into CLAUDE2.md)\
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 \
+\pard\pardeftab560\sa40\partightenfactor0
+
+\f0\b\fs32 \cf0 Outstanding TODOs (post-fix)\
+\pard\pardeftab560\pardirnatural\partightenfactor0
+\ls7\ilvl0
+\f3\b0\fs18 \cf0 {\listtext	\uc0\u8226 	}
+\f1\fs26 [ ] Build runs locally \'97 needs npm run build to catch TypeScript errors from new columns\
+\ls7\ilvl0
+\f3\fs18 {\listtext	\uc0\u8226 	}
+\f1\fs26 [ ] May need as any casts for new columns until Supabase types regenerate\
+\ls7\ilvl0
+\f3\fs18 {\listtext	\uc0\u8226 	}
+\f1\fs26 [ ] Commit all session changes to git\
+\ls7\ilvl0
+\f3\fs18 {\listtext	\uc0\u8226 	}
+\f1\fs26 [ ] Push to Vercel for production deploy\
+\ls7\ilvl0
+\f3\fs18 {\listtext	\uc0\u8226 	}
+\f1\fs26 [ ] Verify production sitemap.xml updates with new ~8,191 URLs (sitemap is already paginated, should be fine)\
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 \
+\pard\pardeftab560\sa40\partightenfactor0
+
+\f0\b\fs32 \cf0 Phase 3.2 prep (next session)\
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\f1\b0\fs26 \cf0 After all pages render correctly, next big phase is 
+\f0\b website crawling
+\f1\b0 :\
+\pard\pardeftab560\pardirnatural\partightenfactor0
+\ls8\ilvl0
+\f3\fs18 \cf0 {\listtext	\uc0\u8226 	}
+\f1\fs26 Crawl ~3,500 enriched clinic websites\
+\ls8\ilvl0
+\f3\fs18 {\listtext	\uc0\u8226 	}
+\f1\fs26 Use Crawl4AI + Claude Haiku\
+\ls8\ilvl0
+\f3\fs18 {\listtext	\uc0\u8226 	}
+\f1\fs26 Extract per IV_FIELDS_GUIDE.md: service_types, care_setting, pricing, supervision_level, credentials, safety, mobile service areas, email\
+\ls8\ilvl0
+\f3\fs18 {\listtext	\uc0\u8226 	}
+\f1\fs26 Cost estimate: $150-300\
+\ls8\ilvl0
+\f3\fs18 {\listtext	\uc0\u8226 	}
+\f1\fs26 Resolve address_only confidence rows (promote or reject based on website content)\
+\ls8\ilvl0
+\f3\fs18 {\listtext	\uc0\u8226 	}
+\f1\fs26 Refine is_iv_clinic flag based on actual website content\
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 \
+\pard\pardeftab560\sa40\partightenfactor0
+
+\f0\b\fs32 \cf0 Critical session learnings\
+\pard\pardeftab560\pardirnatural\partightenfactor0
+\ls9\ilvl0
+\f1\b0\fs26 \cf0 {\listtext	0.	}
+\f0\b Supabase has a default 1,000-row limit
+\f1\b0  on all .select() queries. Must paginate via .range() for any aggregation. Discovered after merge made data large enough to hit the limit.\
+{\listtext	0.	}
+\f0\b clinics.slug is NOT NULL
+\f1\b0  \'97 any INSERT into clinics MUST include a slug. Forgot this in migration v1, had to add inline slug generation in v2.\
+{\listtext	0.	}
+\f0\b Google Places returns noise even with location bias
+\f1\b0  \'97 ~3% of "IV therapy" search results were actually urgent cares, hospitals, ERs, or even Whole Foods. Filter by name patterns post-merge.\
+{\listtext	0.	}
+\f0\b NPI data is fundamentally consumer-mismatched
+\f1\b0  for wellness IV directories. Places discovery yielded 99% directory-relevant results vs NPI's 3.3%.\
+{\listtext	0.	}
+\f0\b Pagination + filter triple = the standard query pattern
+\f1\b0  for this codebase going forward. Document in CLAUDE2.md.\
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 \
+\pard\pardeftab560\sa40\partightenfactor0
+
+\f0\b\fs32 \cf0 State at handoff\
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\f1\b0\fs26 \cf0 The user is in a working session on localhost:3000. About to paste src/app/actions/clinics.ts so the next-session-me can write getClinicsByState() fix using the established pagination pattern. Site is running, no production push yet today.\
+}

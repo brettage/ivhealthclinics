@@ -1,0 +1,1811 @@
+55a42308-d2d7-4d21-979c-a845f54c973e	InVigorate IV	https://www.invigoratescllc.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at https://www.invigoratescllc.com/
+Call log:
+  - navigating to "https://www.invigoratescllc.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+1c70c842-c95a-4552-978c-9b864b9c0d4b	Rizo Drip and Aesthetics	http://www.rizodrip.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at http://www.rizodrip.com/
+Call log:
+  - navigating to "http://www.rizodrip.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+3439058e-a844-4c7b-9349-1d8c7606f742	Revive IV Therapy & Injections	https://reviveivtherapyinjections.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at https://reviveivtherapyinjections.com/
+Call log:
+  - navigating to "https://reviveivtherapyinjections.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+fc694a19-3f11-4246-9e51-3c0d6d296c11	Drip Hydration - IV Bar & Wellness Clinic - Corona	https://driphydration.com/coverage-areas/corona/clinic/?utm_source=google&utm_medium=organic&utm_campaign=gmb&utm_content=website	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_HTTP_RESPONSE_CODE_FAILURE at https://driphydration.com/coverage-areas/corona/clinic/?utm_source=google&utm_medium=organic&utm_campaign=gmb&utm_content=website
+Call log:
+  - navigating to "https://driphydration.com/coverage-areas/corona/clinic/?utm_source=google&utm_medium=organic&utm_campaign=gmb&utm_content=website", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+5451ef4a-5d6a-4e50-8a66-babed4907138	AMRON VITALITY AND WELLNESS CENTER	https://www.amronwellness.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at https://www.amronwellness.com/
+Call log:
+  - navigating to "https://www.amronwellness.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+206a0a75-9b10-4236-8927-1a23b5bbd894	NAD IV Therapy Clinic	http://nad-iv.org/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at http://nad-iv.org/
+Call log:
+  - navigating to "http://nad-iv.org/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+7175add1-1183-487b-b569-161f7a1fcfb0	Charmcity IV Therapy Infusion	https://charmcitydrip.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_CONNECTION_CLOSED at https://charmcitydrip.com/
+Call log:
+  - navigating to "https://charmcitydrip.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+2830c7d3-e183-4cf7-b572-fc6355bb3fe1	Revive IV Studio	https://reviveivstudio.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at https://reviveivstudio.com/
+Call log:
+  - navigating to "https://reviveivstudio.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+94542187-5bc1-4e75-97f1-ff8fa23fb0e9	Wellness 15	https://www.wellness15.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://www.wellness15.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+7b1c359e-c5a0-4a61-b463-27405375bd4b	Amazen Drip Infusion	https://medspaclinton.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at https://medspaclinton.com/
+Call log:
+  - navigating to "https://medspaclinton.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+c638319d-62a8-49ef-879c-0d1182094787	61Five Health & Wellness	https://61five.com/schedule-appointment/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_SSL_PROTOCOL_ERROR at https://61five.com/schedule-appointment/
+Call log:
+  - navigating to "https://61five.com/schedule-appointment/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+bb0a8463-988a-41da-9925-db71db3a1c38	IV Hydration4u	https://ivhydration4u.com/	crawl	Unexpected error in _crawl_web at line 559 in wrap_api_call (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/playwright/_impl/_connection.py):
+Error: Page.content: Unable to retrieve content because the page is navigating and changing the content.
+
+Code context:
+ 554           parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+ 555           self._api_zone.set(parsed_st)
+ 556           try:
+ 557               return await cb()
+ 558           except Exception as error:
+ 559 →             raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+ 560           finally:
+ 561               self._api_zone.set(None)
+ 562   
+ 563       def wrap_api_call_sync(
+ 564           self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+2c4d1616-76e5-485c-954a-7474566daad2	I VIE Mobile Hydration - Mobile IV Therapy Orange County	https://iviehydration.com/orange-county	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at https://iviehydration.com/orange-county
+Call log:
+  - navigating to "https://iviehydration.com/orange-county", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+9534150b-70c9-4578-ad31-69a7749704aa	Art of Balance Wellness Spa	https://www.artofbalancespa.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at https://www.artofbalancespa.com/
+Call log:
+  - navigating to "https://www.artofbalancespa.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+1de2c8a8-7754-46ca-beaa-484f5e8978d3	HydraPlus Virginia Highlands	https://www.thehydraplus.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at https://www.thehydraplus.com/
+Call log:
+  - navigating to "https://www.thehydraplus.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+ce0090c4-4eb4-4e5d-a184-525c79369bd1	Revive IV Therapy and Wellness	https://revive-ivtherapyandwellness.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at https://revive-ivtherapyandwellness.com/
+Call log:
+  - navigating to "https://revive-ivtherapyandwellness.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+a31d9891-c546-4454-9c9f-220cfbf9b44a	Complete Wellness and Aesthetics	https://www.completewellnessandaesthetics.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at https://www.completewellnessandaesthetics.com/
+Call log:
+  - navigating to "https://www.completewellnessandaesthetics.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+06db680c-c11f-4f1a-94a6-71eb64ee2a19	Drip Drive Horizon	https://www.dripdriveiv.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://www.dripdriveiv.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+3647d1cf-cfee-44e4-a2e9-a4e37653a01a	IVitamin Anywhere - Mobile IV Austin - Westlake	https://www.ivitaminanywhere.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://www.ivitaminanywhere.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+de46ade8-d016-42cc-85b1-71f60b4b124a	Easy Access hydration IV Bar	http://easyaccesshydration.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at http://easyaccesshydration.com/
+Call log:
+  - navigating to "http://easyaccesshydration.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+092e5b61-028d-454f-a12e-c765c0028f86	Rejuvenation Station	https://rejuvenationstationar.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_SSL_PROTOCOL_ERROR at https://rejuvenationstationar.com/
+Call log:
+  - navigating to "https://rejuvenationstationar.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+fc694a19-3f11-4246-9e51-3c0d6d296c11	Drip Hydration - IV Bar & Wellness Clinic - Corona	https://driphydration.com/coverage-areas/corona/clinic/?utm_source=google&utm_medium=organic&utm_campaign=gmb&utm_content=website	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_HTTP_RESPONSE_CODE_FAILURE at https://driphydration.com/coverage-areas/corona/clinic/?utm_source=google&utm_medium=organic&utm_campaign=gmb&utm_content=website
+Call log:
+  - navigating to "https://driphydration.com/coverage-areas/corona/clinic/?utm_source=google&utm_medium=organic&utm_campaign=gmb&utm_content=website", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+5451ef4a-5d6a-4e50-8a66-babed4907138	AMRON VITALITY AND WELLNESS CENTER	https://www.amronwellness.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at https://www.amronwellness.com/
+Call log:
+  - navigating to "https://www.amronwellness.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+94542187-5bc1-4e75-97f1-ff8fa23fb0e9	Wellness 15	https://www.wellness15.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://www.wellness15.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+b588d8ef-d8cb-4b58-acc3-973902b55d8a	Oasis Hydration & Wellness	https://www.oasishydrationwellness.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_HTTP_RESPONSE_CODE_FAILURE at https://www.oasishydrationwellness.com/
+Call log:
+  - navigating to "https://www.oasishydrationwellness.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+3f8bebbf-1b41-41bb-bad5-3a091edd0b71	61Five Health & Wellness	https://61five.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_SSL_PROTOCOL_ERROR at https://61five.com/
+Call log:
+  - navigating to "https://61five.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+ddaf331c-09d1-4b75-801a-7509898a2e47	Aire Nursing Mobile IV Therapy	http://airenursing.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at http://airenursing.com/
+Call log:
+  - navigating to "http://airenursing.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+ceafa7c2-06de-4cba-9a98-aefb7e226e64	AM AESTHETICS AND WELLNESS	https://www.amaestheticsandwellness.com/?utm_source=GBP	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at https://www.amaestheticsandwellness.com/?utm_source=GBP
+Call log:
+  - navigating to "https://www.amaestheticsandwellness.com/?utm_source=GBP", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+090dbcd0-bb69-494b-961e-8d1d2402976a	AnthroMedical Center	https://www.anthromedicalcenter.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://www.anthromedicalcenter.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+246e0d10-d2e4-4e71-ab67-7747167e5594	Balmscope Wellness	https://www.balmscopewellness.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at https://www.balmscopewellness.com/
+Call log:
+  - navigating to "https://www.balmscopewellness.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+ee322cd5-ce6b-4d25-b0a5-1207951372db	Be Totally Well	https://betotallywell.com/	crawl	Unexpected error in _crawl_web at line 559 in wrap_api_call (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/playwright/_impl/_connection.py):
+Error: Page.content: Unable to retrieve content because the page is navigating and changing the content.
+
+Code context:
+ 554           parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+ 555           self._api_zone.set(parsed_st)
+ 556           try:
+ 557               return await cb()
+ 558           except Exception as error:
+ 559 →             raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+ 560           finally:
+ 561               self._api_zone.set(None)
+ 562   
+ 563       def wrap_api_call_sync(
+ 564           self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+d9c57964-1b81-4e23-b085-11bbe4fbbda8	Believe Image	http://believeimage.com/?utm_source=gbp&utm_medium=organic	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_INVALID_AUTH_CREDENTIALS at http://believeimage.com/?utm_source=gbp&utm_medium=organic
+Call log:
+  - navigating to "http://believeimage.com/?utm_source=gbp&utm_medium=organic", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+919874c3-f085-4df4-83ad-d08bfa15c59b	Botox & Wellness Med Spa	https://www.botox-aesthetics-wellness.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at https://www.botox-aesthetics-wellness.com/
+Call log:
+  - navigating to "https://www.botox-aesthetics-wellness.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+f1d674c4-5eef-4b98-b0cc-3d5d3e37ffbe	Clinic Wellness Med Spa	https://www.clinicwellness.org/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at https://www.clinicwellness.org/
+Call log:
+  - navigating to "https://www.clinicwellness.org/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+2138649b-f0b9-436f-8e91-ff17ae12e8fa	Divine Light	http://www.ourdivinelight.net/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at http://www.ourdivinelight.net/
+Call log:
+  - navigating to "http://www.ourdivinelight.net/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+630731ac-fe67-4017-a9cf-5be778fec33a	Drip Drive	http://www.dripdriveiv.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "http://www.dripdriveiv.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+e38493c5-5152-4ea5-85cc-d78939e8b662	Drip Drive	http://www.dripdriveiv.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "http://www.dripdriveiv.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+557a7e87-347b-4b66-a0e2-da392c0c299f	Drip Hydration - Mobile IV Therapy - Charlotte	https://driphydration.com/coverage-areas/charlotte/?utm_source=google&utm_medium=organic&utm_campaign=gmb&utm_content=website	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_HTTP_RESPONSE_CODE_FAILURE at https://driphydration.com/coverage-areas/charlotte/?utm_source=google&utm_medium=organic&utm_campaign=gmb&utm_content=website
+Call log:
+  - navigating to "https://driphydration.com/coverage-areas/charlotte/?utm_source=google&utm_medium=organic&utm_campaign=gmb&utm_content=website", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+4b6950e0-a36f-461e-9844-36a924ca5470	Drip Hydration - Mobile IV Therapy - Las Vegas	https://driphydration.com/coverage-areas/las-vegas/?utm_source=google&utm_medium=organic&utm_campaign=gmb&utm_content=website	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_HTTP_RESPONSE_CODE_FAILURE at https://driphydration.com/coverage-areas/las-vegas/?utm_source=google&utm_medium=organic&utm_campaign=gmb&utm_content=website
+Call log:
+  - navigating to "https://driphydration.com/coverage-areas/las-vegas/?utm_source=google&utm_medium=organic&utm_campaign=gmb&utm_content=website", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+97933d31-e7e4-4e90-abd4-ab742e2640f6	Drip Hydration - Mobile IV Therapy - Phoenix	https://driphydration.com/coverage-areas/phoenix/?utm_source=google&utm_medium=organic&utm_campaign=gmb&utm_content=website	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_HTTP_RESPONSE_CODE_FAILURE at https://driphydration.com/coverage-areas/phoenix/?utm_source=google&utm_medium=organic&utm_campaign=gmb&utm_content=website
+Call log:
+  - navigating to "https://driphydration.com/coverage-areas/phoenix/?utm_source=google&utm_medium=organic&utm_campaign=gmb&utm_content=website", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+6c2d7b03-084e-4246-99e6-725b1aa5a24f	Drip Wellness Spa	https://dripwellnessspa.com/	crawl	Unexpected error in _crawl_web at line 559 in wrap_api_call (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/playwright/_impl/_connection.py):
+Error: Page.content: Unable to retrieve content because the page is navigating and changing the content.
+
+Code context:
+ 554           parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+ 555           self._api_zone.set(parsed_st)
+ 556           try:
+ 557               return await cb()
+ 558           except Exception as error:
+ 559 →             raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+ 560           finally:
+ 561               self._api_zone.set(None)
+ 562   
+ 563       def wrap_api_call_sync(
+ 564           self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+c9ffc19c-f6ee-4ae9-a728-3ad38effb507	EDGE by ELIXR Wellness Brickell - Miami	https://www.elixrwellness.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://www.elixrwellness.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+d70163a7-03ea-429c-894d-c316c0bdca0f	Elevate Wellness KC	https://www.elevatewellnesskc.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://www.elevatewellnesskc.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+2727c54e-e61d-4a96-9a3a-3450976ad0b4	Elevated Health Augusta	https://www.elevatedhealthaugusta.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_SSL_VERSION_OR_CIPHER_MISMATCH at https://www.elevatedhealthaugusta.com/
+Call log:
+  - navigating to "https://www.elevatedhealthaugusta.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+dc635ea8-609c-4ce6-8b34-1cf138bea97a	Hangover IV	https://hangoveriv.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://hangoveriv.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+2ea9eaa9-f459-413d-9ede-53b2f7789997	HydraPlus	https://www.thehydraplus.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at https://www.thehydraplus.com/
+Call log:
+  - navigating to "https://www.thehydraplus.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+9956b6e5-04e2-4e6a-a7d9-da39430291a9	HydraPlus Sandy Springs	https://www.thehydraplus.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at https://www.thehydraplus.com/
+Call log:
+  - navigating to "https://www.thehydraplus.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+9fe7865a-0d52-4aeb-a967-d02f69b4c252	IV Wellness Lemont	http://www.ivwellnesslemont.com/	crawl	Unexpected error in _crawl_web at line 559 in wrap_api_call (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/playwright/_impl/_connection.py):
+Error: Page.content: Unable to retrieve content because the page is navigating and changing the content.
+
+Code context:
+ 554           parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+ 555           self._api_zone.set(parsed_st)
+ 556           try:
+ 557               return await cb()
+ 558           except Exception as error:
+ 559 →             raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+ 560           finally:
+ 561               self._api_zone.set(None)
+ 562   
+ 563       def wrap_api_call_sync(
+ 564           self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+d5b2449b-357a-4e12-872f-993696e53b37	LifeFusion Health	https://www.lifefusionhealth.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_SSL_PROTOCOL_ERROR at https://www.lifefusionhealth.com/
+Call log:
+  - navigating to "https://www.lifefusionhealth.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+c3a97d03-213d-4d76-a1e1-ad67c089adfa	Liquid Mobile IV: Dallas Metro Clinic & Mobile (We Come to You)	https://www.liquidwellnessiv.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at https://www.liquidwellnessiv.com/
+Call log:
+  - navigating to "https://www.liquidwellnessiv.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+f770c539-3ee2-46e9-ab2b-aff90370d34d	Lonestar Mobile IV Hydration Station LLC	http://lonestarmobileivhydration.com/	crawl	Unexpected error in _crawl_web at line 559 in wrap_api_call (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/playwright/_impl/_connection.py):
+Error: Page.content: Unable to retrieve content because the page is navigating and changing the content.
+
+Code context:
+ 554           parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+ 555           self._api_zone.set(parsed_st)
+ 556           try:
+ 557               return await cb()
+ 558           except Exception as error:
+ 559 →             raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+ 560           finally:
+ 561               self._api_zone.set(None)
+ 562   
+ 563       def wrap_api_call_sync(
+ 564           self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+5305e516-15e3-4b23-87b7-1e75e6bb4924	NAD MD Inc.	http://www.nadmd.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at http://www.nadmd.com/
+Call log:
+  - navigating to "http://www.nadmd.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+14cf1add-595a-4c13-9351-af97aa63d06d	New Leaf Concierge Wellness and Homecare	https://newleafconciergeny.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at https://newleafconciergeny.com/
+Call log:
+  - navigating to "https://newleafconciergeny.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+0d361050-ed09-4d35-8c97-d27d61791df5	NIVA Health Troy	http://thedhealth.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at http://thedhealth.com/
+Call log:
+  - navigating to "http://thedhealth.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+bc05e8ec-ceed-4ff1-9147-84bc38ce2db7	Omega Health Clinics	https://omegahealthclinics.com/?utm_source=google&utm_medium=organic&utm_campaign=gbp	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at https://omegahealthclinics.com/?utm_source=google&utm_medium=organic&utm_campaign=gbp
+Call log:
+  - navigating to "https://omegahealthclinics.com/?utm_source=google&utm_medium=organic&utm_campaign=gbp", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+c0b08d88-55e1-4a05-aa57-6c76cf002d62	Optimal Health A Must-Med spa	https://optimalhealthamust.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_CONNECTION_CLOSED at https://optimalhealthamust.com/
+Call log:
+  - navigating to "https://optimalhealthamust.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+0eb57ec2-abe8-4741-99bf-d085bc9df951	Principessa Med Spa	http://www.principessamedical.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_CONNECTION_CLOSED at http://www.principessamedical.com/
+Call log:
+  - navigating to "http://www.principessamedical.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+dcd6cae6-b03c-4e94-96ef-26cff4defbf6	R	http://www.reviveinfusionwellnessws.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at http://www.reviveinfusionwellnessws.com/
+Call log:
+  - navigating to "http://www.reviveinfusionwellnessws.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+ca653c69-a6ea-4cee-ae82-5c7a7e57cf16	Rejuvenation & Rehydration by Nurse Azure	http://rejuvenationandrehydration.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at http://rejuvenationandrehydration.com/
+Call log:
+  - navigating to "http://rejuvenationandrehydration.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+9a3fa5a9-c94e-4033-ad8b-cdd7eebb5398	Revival Oasis - Mobile IV Therapy	https://revivaloasis.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://revivaloasis.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+d5bee299-a4de-48f1-bdda-38fc0bce18ba	Revive IV Therapy & Injections	https://www.reviveivtherapyinjections.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at https://www.reviveivtherapyinjections.com/
+Call log:
+  - navigating to "https://www.reviveivtherapyinjections.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+4da80d9b-9357-4eaa-8b52-dffb18b28dbc	Revive Medical Spa, LLC	http://www.revivemedicalspa.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_SSL_PROTOCOL_ERROR at http://www.revivemedicalspa.com/
+Call log:
+  - navigating to "http://www.revivemedicalspa.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+ee3c7880-f8f0-49c8-9e9a-650108ddb75f	River Aesthetics	http://www.riveraestheticsavl.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at http://www.riveraestheticsavl.com/
+Call log:
+  - navigating to "http://www.riveraestheticsavl.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+1830e7fb-743c-4dbb-b222-29fa3a75d0cb	Skin Perfect Aesthetics and Wellness	https://www.skinperfectaesthetics.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_CONNECTION_CLOSED at https://www.skinperfectaesthetics.com/
+Call log:
+  - navigating to "https://www.skinperfectaesthetics.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+be1f223d-e6ec-4a7a-b865-98d8494474b9	Stilnova & Co.	https://www.stilnovaco.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://www.stilnovaco.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+35bbb685-db22-4d67-9dee-f5472a0ce1a6	Strive Infusion	https://striveinfusion.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at https://striveinfusion.com/
+Call log:
+  - navigating to "https://striveinfusion.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+4ed17b36-b8a2-47a2-b1fa-a2b70cbceedc	The Dive Bar Cranberry Twp	http://www.thedivebarhydrationcranberrytwp.com/	crawl	Unexpected error in _crawl_web at line 559 in wrap_api_call (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/playwright/_impl/_connection.py):
+Error: Page.content: Unable to retrieve content because the page is navigating and changing the content.
+
+Code context:
+ 554           parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+ 555           self._api_zone.set(parsed_st)
+ 556           try:
+ 557               return await cb()
+ 558           except Exception as error:
+ 559 →             raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+ 560           finally:
+ 561               self._api_zone.set(None)
+ 562   
+ 563       def wrap_api_call_sync(
+ 564           self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+01e19f53-74e7-44f9-a793-1d52e6654492	The IV Club	https://theivclublv.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://theivclublv.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+e227c0db-8270-43c6-93c5-fc3af423d016	The Phoenix Apothecary And Parlor	http://www.phoenixpharmacyandicecream.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_EMPTY_RESPONSE at http://www.phoenixpharmacyandicecream.com/
+Call log:
+  - navigating to "http://www.phoenixpharmacyandicecream.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+cfc9708c-50db-4ee0-97a6-a8cb34f68d39	The Vitality Co.	https://www.thevitalitycospartanburg.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_SSL_PROTOCOL_ERROR at https://www.thevitalitycospartanburg.com/
+Call log:
+  - navigating to "https://www.thevitalitycospartanburg.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+e9f28652-93d3-4265-b5a1-10b94c0a79e2	Vero Aesthetics	https://vero-aesthetics.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_SSL_VERSION_OR_CIPHER_MISMATCH at https://vero-aesthetics.com/
+Call log:
+  - navigating to "https://vero-aesthetics.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+2d31d7a6-d7ee-4758-b33a-1f2809cdf65b	Vida Fusion Health and Wellness	http://vidafusionhw.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at http://vidafusionhw.com/
+Call log:
+  - navigating to "http://vidafusionhw.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+37fcf968-6b42-43b9-9bd3-92bd7c66cea0	Vital Hydration & Wellness	https://vitalhydrationandwellness.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_SSL_PROTOCOL_ERROR at https://vitalhydrationandwellness.com/
+Call log:
+  - navigating to "https://vitalhydrationandwellness.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+748a464a-9b82-4ec8-be5f-837072cb8280	Vital Drip Lounge Med Spa	https://vitaldriploungelaurel.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_CONNECTION_CLOSED at https://vitaldriploungelaurel.com/
+Call log:
+  - navigating to "https://vitaldriploungelaurel.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+eff4b5c4-e188-4e50-b964-7db4e1679feb	Vitality Lounge Med Spa	https://vitalitylounge.health/	crawl	Unexpected error in _crawl_web at line 559 in wrap_api_call (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/playwright/_impl/_connection.py):
+Error: Page.content: Unable to retrieve content because the page is navigating and changing the content.
+
+Code context:
+ 554           parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+ 555           self._api_zone.set(parsed_st)
+ 556           try:
+ 557               return await cb()
+ 558           except Exception as error:
+ 559 →             raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+ 560           finally:
+ 561               self._api_zone.set(None)
+ 562   
+ 563       def wrap_api_call_sync(
+ 564           self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+fb4f931f-40c6-4977-a169-f3c62783bcd2	Wellness Alliance PMA	http://www.wellnessalliancepma.com/	crawl	Unexpected error in _crawl_web at line 559 in wrap_api_call (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/playwright/_impl/_connection.py):
+Error: Page.content: Unable to retrieve content because the page is navigating and changing the content.
+
+Code context:
+ 554           parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+ 555           self._api_zone.set(parsed_st)
+ 556           try:
+ 557               return await cb()
+ 558           except Exception as error:
+ 559 →             raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+ 560           finally:
+ 561               self._api_zone.set(None)
+ 562   
+ 563       def wrap_api_call_sync(
+ 564           self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+905ae2b7-06a5-4624-8518-5d1b887cd3c6	Yordi’s Aesthetic	https://wwwyordisaestheticmedspa.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at https://wwwyordisaestheticmedspa.com/
+Call log:
+  - navigating to "https://wwwyordisaestheticmedspa.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+3a92dd84-2ec9-45f9-80f3-ecfc7a06bcaf	IVitamin Anywhere - Mobile IV Austin - Round Rock - Domain	https://www.ivitaminanywhere.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://www.ivitaminanywhere.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+4aea5638-aef2-4541-bab1-10c1222f0ec0	Eyden Medical Spa	http://eydenspa.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at http://eydenspa.com/
+Call log:
+  - navigating to "http://eydenspa.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+e5ef398a-b868-405e-af4f-88f361e87f75	Plush Wellness + IV	https://www.plushwellnessiv.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at https://www.plushwellnessiv.com/
+Call log:
+  - navigating to "https://www.plushwellnessiv.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+1336852c-752b-4314-b644-5848715d98d3	Tampa Bay IV Therapy and Weight Loss Clinic	https://tampabayivbar.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_SSL_VERSION_OR_CIPHER_MISMATCH at https://tampabayivbar.com/
+Call log:
+  - navigating to "https://tampabayivbar.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+d6d08070-f245-4253-a3f5-ed65b73ee40e	OhioHealth Grant Medical Center Infusion Services	https://www.ohiohealth.com/locations/infusion/grant-medical-center-infusion-center/?utm_source=yext&utm_medium=listings&utm_campaign=websiteclicksfacility	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://www.ohiohealth.com/locations/infusion/grant-medical-center-infusion-center/?utm_source=yext&utm_medium=listings&utm_campaign=websiteclicksfacility", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+8309e241-5390-42fc-9bac-7ba544ba7064	NAD IV Therapy Clinic	http://nad-iv.org/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at http://nad-iv.org/
+Call log:
+  - navigating to "http://nad-iv.org/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+4f5f6fee-04b3-4b68-986a-3625698d6552	Health & Wellness 4Life IV Therapy	http://www.health-wellness4life.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at http://www.health-wellness4life.com/
+Call log:
+  - navigating to "http://www.health-wellness4life.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+d51057bb-3bd8-412c-a5b5-bd1a960ec80d	NAD IV Therapy Clinic	http://nad-iv.org/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at http://nad-iv.org/
+Call log:
+  - navigating to "http://nad-iv.org/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+c3fc224d-1a8e-46fb-b4c2-9c5524f47e0e	Drips Dallas	https://dripsdallas.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_CONNECTION_CLOSED at https://dripsdallas.com/
+Call log:
+  - navigating to "https://dripsdallas.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+c9df23dc-e761-4674-9b00-443f7bdc80ac	I.V. Rain Hydration Wellness & MedSpa	https://www.ivrain.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_CONNECTION_CLOSED at https://www.ivrain.com/
+Call log:
+  - navigating to "https://www.ivrain.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+68e7819c-f216-4fd8-9853-ec3f98582193	Health and Wellness Clinic by LG	https://lghealthwellness.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at https://lghealthwellness.com/
+Call log:
+  - navigating to "https://lghealthwellness.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+55a42308-d2d7-4d21-979c-a845f54c973e	InVigorate IV	https://www.invigoratescllc.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at https://www.invigoratescllc.com/
+Call log:
+  - navigating to "https://www.invigoratescllc.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+1c70c842-c95a-4552-978c-9b864b9c0d4b	Rizo Drip and Aesthetics	http://www.rizodrip.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at http://www.rizodrip.com/
+Call log:
+  - navigating to "http://www.rizodrip.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+3439058e-a844-4c7b-9349-1d8c7606f742	Revive IV Therapy & Injections	https://reviveivtherapyinjections.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at https://reviveivtherapyinjections.com/
+Call log:
+  - navigating to "https://reviveivtherapyinjections.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+206a0a75-9b10-4236-8927-1a23b5bbd894	NAD IV Therapy Clinic	http://nad-iv.org/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at http://nad-iv.org/
+Call log:
+  - navigating to "http://nad-iv.org/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+7175add1-1183-487b-b569-161f7a1fcfb0	Charmcity IV Therapy Infusion	https://charmcitydrip.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_CONNECTION_CLOSED at https://charmcitydrip.com/
+Call log:
+  - navigating to "https://charmcitydrip.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+2830c7d3-e183-4cf7-b572-fc6355bb3fe1	Revive IV Studio	https://reviveivstudio.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at https://reviveivstudio.com/
+Call log:
+  - navigating to "https://reviveivstudio.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+7b1c359e-c5a0-4a61-b463-27405375bd4b	Amazen Drip Infusion	https://medspaclinton.com/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at https://medspaclinton.com/
+Call log:
+  - navigating to "https://medspaclinton.com/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+c638319d-62a8-49ef-879c-0d1182094787	61Five Health & Wellness	https://61five.com/schedule-appointment/	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_SSL_PROTOCOL_ERROR at https://61five.com/schedule-appointment/
+Call log:
+  - navigating to "https://61five.com/schedule-appointment/", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
+2c4d1616-76e5-485c-954a-7474566daad2	I VIE Mobile Hydration - Mobile IV Therapy Orange County	https://iviehydration.com/orange-county	crawl	Unexpected error in _crawl_web at line 718 in _crawl_web (../../../../Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_NAME_NOT_RESOLVED at https://iviehydration.com/orange-county
+Call log:
+  - navigating to "https://iviehydration.com/orange-county", waiting until "domcontentloaded"
+
+
+Code context:
+ 713                                   tag="GOTO",
+ 714                                   params={"url": url},
+ 715                               )
+ 716                               response = None
+ 717                           else:
+ 718 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 719   
+ 720                       # ──────────────────────────────────────────────────────────────
+ 721                       # Walk the redirect chain.  Playwright returns only the last
+ 722                       # hop, so we trace the `request.redirected_from` links until the
+ 723                       # first response that differs from the final one and surface its
