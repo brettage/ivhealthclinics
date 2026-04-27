@@ -1,6 +1,7 @@
 'use server'
 
 import { createClient } from '@/lib/supabase/server'
+import { sortByQualityScore } from '@/lib/clinic-ranking'
 
 /**
  * Standard "directory-visible" filter applied to all consumer-facing queries.
@@ -215,13 +216,14 @@ export async function getAllClinics(filters?: {
     offset += PAGE_SIZE
   }
 
-  // If filtering for services and the column has empty arrays in the data,
-  // strip them client-side as a safety net (cheap once the DB query already trimmed nulls).
-  if (filters?.servicesOnly) {
-    return allRows.filter(r => Array.isArray(r.service_types) && r.service_types.length > 0)
-  }
+  // Strip empty-array rows for the services filter (Postgres NULL vs {} nuance).
+  const filtered = filters?.servicesOnly
+    ? allRows.filter(r => Array.isArray(r.service_types) && r.service_types.length > 0)
+    : allRows
 
-  return allRows
+  // Sort by quality score: data completeness bonuses + review-weighted rating.
+  // Surfaces the most informative listings first, regardless of filter state.
+  return sortByQualityScore(filtered)
 }
 
 /**
