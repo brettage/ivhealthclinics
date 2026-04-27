@@ -180,13 +180,31 @@ export async function getMobileIVClinics() {
   return allRows
 }
 
-export async function getAllClinics() {
+export async function getAllClinics(filters?: {
+  servicesOnly?: boolean
+  mobileOnly?: boolean
+  pricingOnly?: boolean
+}) {
   const supabase = await createClient()
   const PAGE_SIZE = 1000
   const allRows: any[] = []
   let offset = 0
   while (true) {
-    const q = applyVisibilityFilters(supabase.from('clinics').select('*'))
+    let q = applyVisibilityFilters(supabase.from('clinics').select('*'))
+
+    // Apply optional filters from /clinics page chips
+    if (filters?.mobileOnly) {
+      q = q.eq('mobile_service_available', true)
+    }
+    if (filters?.pricingOnly) {
+      q = q.not('price_range_min', 'is', null)
+    }
+    if (filters?.servicesOnly) {
+      // Postgres distinguishes NULL from empty array {}.
+      // Filter out both — only keep rows with at least one service listed.
+      q = q.not('service_types', 'is', null)
+    }
+
     const { data, error } = await q
       .order('rating_count', { ascending: false, nullsFirst: false })
       .range(offset, offset + PAGE_SIZE - 1)
@@ -196,6 +214,13 @@ export async function getAllClinics() {
     if (data.length < PAGE_SIZE) break
     offset += PAGE_SIZE
   }
+
+  // If filtering for services and the column has empty arrays in the data,
+  // strip them client-side as a safety net (cheap once the DB query already trimmed nulls).
+  if (filters?.servicesOnly) {
+    return allRows.filter(r => Array.isArray(r.service_types) && r.service_types.length > 0)
+  }
+
   return allRows
 }
 

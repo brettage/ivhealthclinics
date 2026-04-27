@@ -19,6 +19,10 @@ IVHealthClinics (ivhealthclinics.com) is a directory for IV hydration, vitamin d
 - Avg rating 4.9 / ~140 reviews
 - Data quality: 64%+ have services, 63%+ have care setting, ~19% mobile, ~13% pricing
 
+## Recently Shipped
+
+- **2026-04-27** — `<ClinicBadges />` component (commit `9eef214`). Renders 💧 Services / 🚐 Mobile IV / 💲 Pricing pills on `ClinicCard` (size `sm`) and clinic detail page (size `md`) when the corresponding fields are populated. Removed duplicate Mobile pill from card. First user-visible win from Phase 3 enriched data.
+- 
 ## Commands
 
 ```bash
