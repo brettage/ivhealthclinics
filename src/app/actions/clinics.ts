@@ -180,6 +180,25 @@ export async function getMobileIVClinics() {
   return allRows
 }
 
+export async function getAllClinics() {
+  const supabase = await createClient()
+  const PAGE_SIZE = 1000
+  const allRows: any[] = []
+  let offset = 0
+  while (true) {
+    const q = applyVisibilityFilters(supabase.from('clinics').select('*'))
+    const { data, error } = await q
+      .order('rating_count', { ascending: false, nullsFirst: false })
+      .range(offset, offset + PAGE_SIZE - 1)
+    if (error) { console.error('Error fetching all clinics:', error); break }
+    if (!data || data.length === 0) break
+    allRows.push(...data)
+    if (data.length < PAGE_SIZE) break
+    offset += PAGE_SIZE
+  }
+  return allRows
+}
+
 /**
  * Counts directory-visible clinics only (not all rows in clinics table).
  * Used for homepage stat. Previously returned total table size including
