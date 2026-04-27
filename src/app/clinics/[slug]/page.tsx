@@ -6,6 +6,7 @@ import { generateClinicSchema } from '@/lib/schema-org'
 import ClinicCard from '@/components/ClinicCard'
 import type { Metadata } from 'next'
 import ClinicBadges from '@/components/ClinicBadges'
+import { stateUrl, stateCityUrl } from '@/lib/state-slugs'
 
 export async function generateMetadata({
   params,
@@ -64,14 +65,14 @@ export default async function ClinicDetailPage({
             <span>/</span>
             {clinic.state && (
               <>
-                <Link href={`/locations/${clinic.state.toLowerCase()}`} className="hover:text-white/80">{clinic.state}</Link>
+                <Link href={stateUrl(clinic.state) || '#'} className="hover:text-white/80">{clinic.state}</Link>
                 <span>/</span>
               </>
             )}
             {clinic.city && clinic.state && (
               <>
                 <Link
-                  href={`/locations/${clinic.state.toLowerCase()}/${clinic.city.toLowerCase().replace(/\s+/g, '-')}`}
+                  href={stateCityUrl(clinic.state, clinic.city) || '#'}
                   className="hover:text-white/80"
                 >
                   {clinic.city}

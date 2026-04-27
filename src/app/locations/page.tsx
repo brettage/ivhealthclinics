@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { US_STATES } from '@/types/clinic'
 import type { Metadata } from 'next'
+import { SLUG_BY_ABBR } from '@/lib/state-slugs'
 
 export const metadata: Metadata = {
   title: 'Browse IV Therapy Clinics by State',
@@ -77,7 +78,7 @@ export default async function LocationsPage() {
         {states.map((state) => (
           <Link
             key={state.abbr}
-            href={`/locations/${state.abbr.toLowerCase()}`}
+            href={`/locations/${SLUG_BY_ABBR[state.abbr] || state.abbr.toLowerCase()}`}
             className={`group p-4 rounded-xl border transition-all ${
               state.count > 0
                 ? 'border-gray-100 hover:border-emerald-200 hover:shadow-md'

@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getClinicsByState } from '@/app/actions/clinics'
-import { US_STATES } from '@/types/clinic'
+import { resolveState } from '@/lib/state-slugs'
 import type { Metadata } from 'next'
 
 export async function generateMetadata({
@@ -10,14 +10,13 @@ export async function generateMetadata({
   params: Promise<{ state: string }>
 }): Promise<Metadata> {
   const { state } = await params
-  const stateAbbr = state.toUpperCase()
-  const stateName = US_STATES[stateAbbr]
-  if (!stateName) return { title: 'State Not Found' }
+  const resolved = resolveState(state)
+  if (!resolved) return { title: 'State Not Found' }
 
   return {
-    title: `IV Therapy Clinics in ${stateName}`,
-    description: `Find and compare IV hydration, vitamin drip, and NAD+ therapy clinics in ${stateName}. Browse by city.`,
-    alternates: { canonical: `/locations/${state}` },
+    title: `IV Therapy Clinics in ${resolved.name}`,
+    description: `Find and compare IV hydration, vitamin drip, and NAD+ therapy clinics in ${resolved.name}. Browse by city.`,
+    alternates: { canonical: `/locations/${resolved.slug}` },
   }
 }
 
@@ -27,11 +26,11 @@ export default async function StatePage({
   params: Promise<{ state: string }>
 }) {
   const { state } = await params
-  const stateAbbr = state.toUpperCase()
-  const stateName = US_STATES[stateAbbr]
-  if (!stateName) notFound()
+  const resolved = resolveState(state)
+  if (!resolved) notFound()
 
-  const cities = await getClinicsByState(stateAbbr)
+  // getClinicsByState expects abbreviation. Resolved.abbr is the canonical form.
+  const cities = await getClinicsByState(resolved.abbr)
   const totalClinics = cities.reduce((sum, c) => sum + c.count, 0)
 
   return (
@@ -42,11 +41,11 @@ export default async function StatePage({
         <span>/</span>
         <Link href="/locations" className="hover:text-emerald-600">Locations</Link>
         <span>/</span>
-        <span className="text-gray-900 font-medium">{stateName}</span>
+        <span className="text-gray-900 font-medium">{resolved.name}</span>
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900">
-        IV Therapy Clinics in {stateName}
+        IV Therapy Clinics in {resolved.name}
       </h1>
       <p className="mt-2 text-gray-500">
         {totalClinics} clinic{totalClinics !== 1 ? 's' : ''} across {cities.length} cit{cities.length !== 1 ? 'ies' : 'y'}
@@ -57,7 +56,7 @@ export default async function StatePage({
           {cities.map(({ city, count }) => (
             <Link
               key={city}
-              href={`/locations/${state}/${city.toLowerCase().replace(/\s+/g, '-')}`}
+              href={`/locations/${resolved.slug}/${city.toLowerCase().replace(/\s+/g, '-')}`}
               className="group p-4 rounded-xl border border-gray-100 hover:border-emerald-200 hover:shadow-md transition-all"
             >
               <p className="font-semibold text-gray-900 group-hover:text-emerald-600 transition-colors">
@@ -71,7 +70,7 @@ export default async function StatePage({
         </div>
       ) : (
         <div className="text-center py-16">
-          <p className="text-gray-500">No IV therapy clinics found in {stateName} yet.</p>
+          <p className="text-gray-500">No IV therapy clinics found in {resolved.name} yet.</p>
           <Link href="/locations" className="mt-4 inline-block text-sm font-medium text-emerald-600 hover:text-emerald-700">
             ← Browse other states
           </Link>

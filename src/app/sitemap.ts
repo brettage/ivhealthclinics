@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next'
 import { createClient } from '@supabase/supabase-js'
+import { SLUG_BY_ABBR } from '@/lib/state-slugs'
 
 const BASE_URL = 'https://ivhealthclinics.com'
 
@@ -59,7 +60,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // ── Static pages ──────────────────────────────────────────────
   const staticPages: MetadataRoute.Sitemap = [
     { url: BASE_URL, lastModified: new Date(), changeFrequency: 'daily', priority: 1.0 },
-    { url: `${BASE_URL}/locations`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${BASE_URL}/locations/${SLUG_BY_ABBR[state.toUpperCase()] || state.toLowerCase()}`,
     { url: `${BASE_URL}/search`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
     { url: `${BASE_URL}/compare`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
     { url: `${BASE_URL}/services`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
@@ -135,7 +136,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       const citySlug = city.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
       const stateSlug = state.toLowerCase()
       return {
-        url: `${BASE_URL}/locations/${stateSlug}/${citySlug}`,
+        url: `${BASE_URL}/locations/${SLUG_BY_ABBR[stateSlug.toUpperCase()] || stateSlug.toLowerCase()}/${citySlug}`,
         lastModified: new Date(),
         changeFrequency: 'weekly' as const,
         priority: 0.7,

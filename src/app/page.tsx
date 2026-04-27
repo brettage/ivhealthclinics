@@ -19,19 +19,15 @@ export default async function HomePage() {
   ]
 
   const topCities = [
-    { name: 'Miami', state: 'FL', slug: 'fl/miami' },
-    { name: 'Los Angeles', state: 'CA', slug: 'ca/los-angeles' },
-    { name: 'New York', state: 'NY', slug: 'ny/new-york' },
-    { name: 'Las Vegas', state: 'NV', slug: 'nv/las-vegas' },
-    { name: 'Houston', state: 'TX', slug: 'tx/houston' },
-    { name: 'Scottsdale', state: 'AZ', slug: 'az/scottsdale' },
-    { name: 'Austin', state: 'TX', slug: 'tx/austin' },
-    { name: 'Nashville', state: 'TN', slug: 'tn/nashville' },
-    { name: 'Denver', state: 'CO', slug: 'co/denver' },
-    { name: 'Atlanta', state: 'GA', slug: 'ga/atlanta' },
-    { name: 'Dallas', state: 'TX', slug: 'tx/dallas' },
-    { name: 'San Diego', state: 'CA', slug: 'ca/san-diego' },
-  ]
+  { name: 'Miami', state: 'FL', slug: 'florida/miami' },
+  { name: 'Los Angeles', state: 'CA', slug: 'california/los-angeles' },
+  { name: 'New York', state: 'NY', slug: 'new-york/new-york' },
+  { name: 'Las Vegas', state: 'NV', slug: 'nevada/las-vegas' },
+  { name: 'Houston', state: 'TX', slug: 'texas/houston' },
+  { name: 'Scottsdale', state: 'AZ', slug: 'arizona/scottsdale' },
+  { name: 'Austin', state: 'TX', slug: 'texas/austin' },
+  { name: 'Nashville', state: 'TN', slug: 'tennessee/nashville' },
+]
 
   return (
     <div>

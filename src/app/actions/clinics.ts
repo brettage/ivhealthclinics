@@ -1,7 +1,7 @@
 'use server'
 
 import { createClient } from '@/lib/supabase/server'
-import { sortByQualityScore } from '@/lib/clinic-ranking'
+import { sortByQualityScore, dedupeClinicsById } from '@/lib/clinic-ranking'
 
 /**
  * Standard "directory-visible" filter applied to all consumer-facing queries.
@@ -16,6 +16,7 @@ function applyVisibilityFilters<Q extends { eq: any; is: any }>(q: Q): Q {
     .eq('enrichment_status', 'enriched')
     .is('duplicate_of', null)
 }
+
 
 export async function getFeaturedClinics(limit = 6) {
   const supabase = await createClient()
@@ -149,6 +150,7 @@ export async function getClinicsByServiceType(serviceType: string) {
       supabase.from('clinics').select('*').contains('service_types', [serviceType])
     )
     const { data, error } = await q
+      .order('id', { ascending: true })
       .range(offset, offset + PAGE_SIZE - 1)
     if (error) { console.error('Error fetching clinics by service type:', error); break }
     if (!data || data.length === 0) break
@@ -156,7 +158,7 @@ export async function getClinicsByServiceType(serviceType: string) {
     if (data.length < PAGE_SIZE) break
     offset += PAGE_SIZE
   }
-  return sortByQualityScore(allRows)
+  return sortByQualityScore(dedupeClinicsById(allRows))
 }
 
 export async function getMobileIVClinics() {
@@ -169,6 +171,7 @@ export async function getMobileIVClinics() {
       supabase.from('clinics').select('*').eq('mobile_service_available', true)
     )
     const { data, error } = await q
+      .order('id', { ascending: true })
       .range(offset, offset + PAGE_SIZE - 1)
     if (error) { console.error('Error fetching mobile IV clinics:', error); break }
     if (!data || data.length === 0) break
@@ -176,7 +179,7 @@ export async function getMobileIVClinics() {
     if (data.length < PAGE_SIZE) break
     offset += PAGE_SIZE
   }
-  return sortByQualityScore(allRows)
+  return sortByQualityScore(dedupeClinicsById(allRows))
 }
 
 export async function getAllClinics(filters?: {
@@ -205,7 +208,7 @@ export async function getAllClinics(filters?: {
     }
 
     const { data, error } = await q
-      .order('rating_count', { ascending: false, nullsFirst: false })
+      .order('id', { ascending: true })
       .range(offset, offset + PAGE_SIZE - 1)
     if (error) { console.error('Error fetching all clinics:', error); break }
     if (!data || data.length === 0) break
@@ -215,9 +218,10 @@ export async function getAllClinics(filters?: {
   }
 
   // Strip empty-array rows for the services filter (Postgres NULL vs {} nuance).
+  const deduped = dedupeClinicsById(allRows)
   const filtered = filters?.servicesOnly
-    ? allRows.filter(r => Array.isArray(r.service_types) && r.service_types.length > 0)
-    : allRows
+    ? deduped.filter(r => Array.isArray(r.service_types) && r.service_types.length > 0)
+    : deduped
 
   // Sort by quality score: data completeness bonuses + review-weighted rating.
   // Surfaces the most informative listings first, regardless of filter state.

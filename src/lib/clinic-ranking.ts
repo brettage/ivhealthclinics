@@ -54,3 +54,17 @@ export function computeClinicScore(clinic: ScoreableClinic): number {
 export function sortByQualityScore<T extends ScoreableClinic>(clinics: T[]): T[] {
   return clinics.sort((a, b) => computeClinicScore(b) - computeClinicScore(a))
 }
+
+/**
+ * Removes duplicate rows by id. Guards against Supabase pagination instability:
+ * without a stable unique sort tiebreaker, the same row can appear on multiple
+ * pages when the primary sort column has many ties (nulls in rating_count, etc.).
+ */
+export function dedupeClinicsById<T extends { id: string }>(rows: T[]): T[] {
+  const seen = new Set<string>()
+  return rows.filter(r => {
+    if (seen.has(r.id)) return false
+    seen.add(r.id)
+    return true
+  })
+}
