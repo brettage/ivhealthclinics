@@ -149,7 +149,6 @@ export async function getClinicsByServiceType(serviceType: string) {
       supabase.from('clinics').select('*').contains('service_types', [serviceType])
     )
     const { data, error } = await q
-      .order('rating_count', { ascending: false, nullsFirst: false })
       .range(offset, offset + PAGE_SIZE - 1)
     if (error) { console.error('Error fetching clinics by service type:', error); break }
     if (!data || data.length === 0) break
@@ -157,7 +156,7 @@ export async function getClinicsByServiceType(serviceType: string) {
     if (data.length < PAGE_SIZE) break
     offset += PAGE_SIZE
   }
-  return allRows
+  return sortByQualityScore(allRows)
 }
 
 export async function getMobileIVClinics() {
@@ -170,7 +169,6 @@ export async function getMobileIVClinics() {
       supabase.from('clinics').select('*').eq('mobile_service_available', true)
     )
     const { data, error } = await q
-      .order('rating_count', { ascending: false, nullsFirst: false })
       .range(offset, offset + PAGE_SIZE - 1)
     if (error) { console.error('Error fetching mobile IV clinics:', error); break }
     if (!data || data.length === 0) break
@@ -178,7 +176,7 @@ export async function getMobileIVClinics() {
     if (data.length < PAGE_SIZE) break
     offset += PAGE_SIZE
   }
-  return allRows
+  return sortByQualityScore(allRows)
 }
 
 export async function getAllClinics(filters?: {

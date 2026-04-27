@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { US_STATES } from '@/types/clinic'
 import ClinicCard from '@/components/ClinicCard'
+import { sortByQualityScore } from '@/lib/clinic-ranking'
 import type { Metadata } from 'next'
 
 function unslugify(slug: string): string {
@@ -56,7 +57,6 @@ export default async function CityPage({
       .eq('is_iv_clinic', true)
       .eq('enrichment_status', 'enriched')
       .is('duplicate_of', null)
-      .order('rating_value', { ascending: false, nullsFirst: false })
       .range(offset, offset + PAGE_SIZE - 1)
 
     if (error) {
@@ -68,6 +68,8 @@ export default async function CityPage({
     if (data.length < PAGE_SIZE) break
     offset += PAGE_SIZE
   }
+
+  sortByQualityScore(allClinics)
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
