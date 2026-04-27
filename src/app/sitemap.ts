@@ -60,7 +60,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // ── Static pages ──────────────────────────────────────────────
   const staticPages: MetadataRoute.Sitemap = [
     { url: BASE_URL, lastModified: new Date(), changeFrequency: 'daily', priority: 1.0 },
-    { url: `${BASE_URL}/locations/${SLUG_BY_ABBR[state.toUpperCase()] || state.toLowerCase()}`,
+    { url: `${BASE_URL}/locations`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
     { url: `${BASE_URL}/search`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
     { url: `${BASE_URL}/compare`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
     { url: `${BASE_URL}/services`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
@@ -72,12 +72,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ]
 
   // ── State pages (/locations/[state]) ──────────────────────────
-  const statePages: MetadataRoute.Sitemap = US_STATES.map((state) => ({
-    url: `${BASE_URL}/locations/${state}`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly' as const,
-    priority: 0.8,
-  }))
+const statePages: MetadataRoute.Sitemap = US_STATES.map((state) => ({
+  url: `${BASE_URL}/locations/${SLUG_BY_ABBR[state.toUpperCase()] || state.toLowerCase()}`,
+  lastModified: new Date(),
+  changeFrequency: 'weekly' as const,
+  priority: 0.8,
+}))
 
   // ── Mobile IV state pages (/mobile-iv/[state]) ────────────────
   const mobileIVPages: MetadataRoute.Sitemap = US_STATES.map((state) => ({
