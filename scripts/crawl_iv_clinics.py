@@ -46,7 +46,7 @@ import os
 import re
 import sys
 import time
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import anthropic
@@ -97,43 +97,69 @@ async def crawl_url(url: str) -> tuple[str, str | None]:
     """
     Crawl a URL and return (markdown_content, error_message).
     Falls back to empty string on failure.
+    Two-pass: first attempt with standard timeout; if content < 30 words,
+    retry with a longer JS wait to handle slow-loading SPAs.
     """
     if not HAS_CRAWL4AI:
         return '', 'crawl4ai_not_installed'
 
-    try:
-        config = CrawlerRunConfig(
-            cache_mode=CacheMode.BYPASS,
-            word_count_threshold=30,
-            excluded_tags=['nav', 'footer', 'header', 'script', 'style'],
-            process_iframes=False,
-            remove_overlay_elements=True,
-            page_timeout=CRAWL_TIMEOUT_SEC * 1000,
-        )
-        async with AsyncWebCrawler(verbose=False) as crawler:
-            result = await asyncio.wait_for(
-                crawler.arun(url=url, config=config),
-                timeout=CRAWL_TIMEOUT_SEC + 5,
+    async def _attempt(wait_ms: int) -> tuple[str, str | None]:
+        # Only add wait_for on the retry pass (wait_ms > 0) — applying it on the
+        # first pass forces Crawl4AI to hold the page open for the full timeout
+        # even on fast-loading sites, adding ~20s per clinic to total runtime.
+        timeout_sec = CRAWL_TIMEOUT_SEC + wait_ms / 1000 + 5
+        try:
+            config_kwargs: dict = dict(
+                cache_mode=CacheMode.BYPASS,
+                word_count_threshold=10,
+                excluded_tags=['nav', 'footer', 'header', 'script', 'style'],
+                process_iframes=False,
+                remove_overlay_elements=True,
+                page_timeout=int((CRAWL_TIMEOUT_SEC + wait_ms / 1000) * 1000),
             )
-        if not result.success:
-            return '', result.error_message or 'crawl_failed'
-        content = getattr(result, 'markdown_v2', None)
-        if content:
-            text = getattr(content, 'raw_markdown', '') or ''
-        else:
-            text = getattr(result, 'markdown', '') or ''
-        return text.strip(), None
-    except asyncio.TimeoutError:
-        return '', 'timeout'
-    except Exception as e:
-        return '', str(e)[:200]
+            if wait_ms > 0:
+                config_kwargs['wait_for'] = f'js:() => new Promise(r => setTimeout(r, {wait_ms}))'
+            config = CrawlerRunConfig(**config_kwargs)
+            async with AsyncWebCrawler(verbose=False) as crawler:
+                result = await asyncio.wait_for(
+                    crawler.arun(url=url, config=config),
+                    timeout=timeout_sec,
+                )
+            if not result.success:
+                return '', result.error_message or 'crawl_failed'
+            content = getattr(result, 'markdown_v2', None)
+            text = (getattr(content, 'raw_markdown', '') or '') if content else (getattr(result, 'markdown', '') or '')
+            return text.strip(), None
+        except asyncio.TimeoutError:
+            return '', 'timeout'
+        except Exception as e:
+            return '', str(e)[:200]
+
+    # First pass: no JS wait — fast for standard sites (~2-5s each)
+    text, err = await _attempt(wait_ms=0)
+    if err:
+        return '', err
+    # Retry with 3s JS wait only for pages that returned too little content
+    # (JS-heavy SPAs that need more render time)
+    if len(text.split()) < 30:
+        text2, err2 = await _attempt(wait_ms=3000)
+        if not err2 and len(text2.split()) > len(text.split()):
+            text = text2
+    return text, None
 
 
-def truncate_to_words(text: str, max_words: int) -> str:
+# Hard character cap: ~15k chars ≈ 5k tokens, prevents token spikes from
+# markdown with long URLs or dense link lists that defeat word-count truncation
+MAX_CHARS = 15_000
+
+
+def truncate_content(text: str, max_words: int) -> str:
     words = text.split()
-    if len(words) <= max_words:
-        return text
-    return ' '.join(words[:max_words]) + '\n[... truncated]'
+    if len(words) > max_words:
+        text = ' '.join(words[:max_words]) + '\n[... truncated]'
+    if len(text) > MAX_CHARS:
+        text = text[:MAX_CHARS] + '\n[... truncated]'
+    return text
 
 
 # ----------------------------------------------------------------------------
@@ -231,7 +257,7 @@ def write_result(supabase, row_id: str, status: str, result: dict | None, dry_ru
         return
     payload: dict = {
         'crawl_status': status,
-        'crawled_at': datetime.utcnow().isoformat(),
+        'crawled_at': datetime.now(timezone.utc).isoformat(),
     }
     if result is not None:
         payload['crawl_result'] = result
@@ -390,7 +416,7 @@ def main():
             stats['skipped'] += 1
             continue
 
-        truncated = truncate_to_words(content, MAX_WORDS_PER_PAGE)
+        truncated = truncate_content(content, MAX_WORDS_PER_PAGE)
 
         # --- Extract ---
         try:
