@@ -10,14 +10,15 @@
 
 import type { Guide } from './iv-therapy-cost'
 import { ivTherapyCostGuide } from './iv-therapy-cost'
+import { typesOfIvDripsGuide } from './types-of-iv-drips'
+import { mobileVsClinicIvGuide } from './mobile-vs-clinic-iv'
 
 export type { Guide, GuideSection, GuideBlock, GuideLink } from './iv-therapy-cost'
 
 export const GUIDES: Record<string, Guide> = {
   'iv-therapy-cost': ivTherapyCostGuide,
-  // Add new guides here:
-  // 'types-of-iv-drips': typesOfIvDripsGuide,
-  // 'mobile-vs-clinic-iv': mobileVsClinicIvGuide,
+  'types-of-iv-drips': typesOfIvDripsGuide,
+  'mobile-vs-clinic-iv': mobileVsClinicIvGuide,
 }
 
 export function getGuide(slug: string): Guide | null {
