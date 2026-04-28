@@ -2,7 +2,6 @@ import { Resend } from 'resend'
 import { NextResponse } from 'next/server'
 import { createServiceClient } from '@/lib/supabase/server'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
 
 type ClaimPayload = {
   name: string
@@ -49,29 +48,34 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Failed to record claim' }, { status: 500 })
   }
 
-  // Email is best-effort. If it fails, log it but still return success to the user
-  // because the claim is already persisted and we can review it in the DB.
-  try {
-    await resend.emails.send({
-      from: 'IVHealthClinics <notifications@ivhealthclinics.com>',
-      to: 'info@tenafterten.com',
-      subject: `Claim Request — ${payload.clinic_name}`,
-      html: `
-        <h2>New Listing Claim Request</h2>
-        <p><strong>Claim ID:</strong> ${claim.id}</p>
-        <p><strong>Name:</strong> ${escapeHtml(payload.name)}</p>
-        <p><strong>Email:</strong> ${escapeHtml(payload.email)}</p>
-        <p><strong>Clinic:</strong> ${escapeHtml(payload.clinic_name)}</p>
-        <p><strong>Phone:</strong> ${escapeHtml(payload.phone || 'N/A')}</p>
-        ${payload.clinic_id
-          ? `<p><strong>Linked clinic ID:</strong> ${payload.clinic_id}</p>`
-          : `<p><em>No clinic link \u2014 claim came from generic /claim page</em></p>`}
-        <hr>
-        <p><small>Review at: <a href="https://supabase.com/dashboard/project/wahzjxidlcfcglmvwqje/editor">Supabase claims table</a></small></p>
-      `,
-    })
-  } catch (emailError) {
-    console.error('Claim email send failed (claim still persisted):', emailError)
+  // Email is best-effort. If the API key isn't configured or the send fails,
+  // log it but still return success — the claim is already persisted in DB.
+  if (process.env.RESEND_API_KEY) {
+    try {
+      const resend = new Resend(process.env.RESEND_API_KEY)
+      await resend.emails.send({
+        from: 'IVHealthClinics <notifications@ivhealthclinics.com>',
+        to: 'info@tenafterten.com',
+        subject: `Claim Request — ${payload.clinic_name}`,
+        html: `
+          <h2>New Listing Claim Request</h2>
+          <p><strong>Claim ID:</strong> ${claim.id}</p>
+          <p><strong>Name:</strong> ${escapeHtml(payload.name)}</p>
+          <p><strong>Email:</strong> ${escapeHtml(payload.email)}</p>
+          <p><strong>Clinic:</strong> ${escapeHtml(payload.clinic_name)}</p>
+          <p><strong>Phone:</strong> ${escapeHtml(payload.phone || 'N/A')}</p>
+          ${payload.clinic_id
+            ? `<p><strong>Linked clinic ID:</strong> ${payload.clinic_id}</p>`
+            : `<p><em>No clinic link \u2014 claim came from generic /claim page</em></p>`}
+          <hr>
+          <p><small>Review at: <a href="https://supabase.com/dashboard/project/wahzjxidlcfcglmvwqje/editor">Supabase claims table</a></small></p>
+        `,
+      })
+    } catch (emailError) {
+      console.error('Claim email send failed (claim still persisted):', emailError)
+    }
+  } else {
+    console.warn('RESEND_API_KEY not configured — claim recorded but no email sent')
   }
 
   return NextResponse.json({ success: true, claimId: claim.id })
