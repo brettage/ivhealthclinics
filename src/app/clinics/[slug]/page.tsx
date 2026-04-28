@@ -317,6 +317,18 @@ export default async function ClinicDetailPage({
           </div>
         </div>
 
+        <div className="mt-6 p-4 rounded-lg bg-gray-50 border border-gray-200">
+          <p className="text-sm text-gray-600">
+            Are you the owner of {clinic.name}?{' '}
+            <Link
+              href={`/claim/${clinic.slug}`}
+              className="text-emerald-600 hover:text-emerald-700 font-medium underline"
+            >
+              Claim this listing
+            </Link>
+          </p>
+        </div>
+
         {/* Nearby Clinics */}
         {nearbyClinics.length > 0 && (
           <section className="mt-12 pt-8 border-t border-gray-100">

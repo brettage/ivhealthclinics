@@ -29,6 +29,7 @@ export default function Header() {
             <NavLink href="/mobile-iv">Mobile IV</NavLink>
             <NavLink href="/compare">Compare</NavLink>
             <NavLink href="/guides">Guides</NavLink>
+            <NavLink href="/claim">Claim</NavLink>
           </nav>
 
           {/* Desktop CTA */}

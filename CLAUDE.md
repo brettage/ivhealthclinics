@@ -2,27 +2,33 @@
 
 Instructions for Claude Code when working on the IVHealthClinics project.
 
-**Last updated:** April 27, 2026 (post-Phase-3 — data enrichment complete)
+**Last updated:** April 27, 2026 (end of day — Priorities 1–3 shipped)
 
 ## Project Overview
 
 IVHealthClinics (ivhealthclinics.com) is a directory for IV hydration, vitamin drips, and infusion wellness clinics. Built with Next.js 16, TypeScript, Tailwind CSS 4, and Supabase. Sister site to hormonemap.com.
 
-## Current State (as of 2026-04-27)
+## Current State (as of 2026-04-27 EOD)
 
-**Phase 3 (Data + Infrastructure) is COMPLETE.** Next phase is Product, SEO, and Traffic.
+**Priorities 1–3 from the 4/27 TODO are SHIPPED.** Site is fully data-visible, SEO-foundationed, and has its first three guide articles live. Next phase is wait-and-watch (Search Console takes weeks to process changes).
 
 - **8,191 total clinics** in DB (4,651 NPI seed + 3,540 Google Places discovered)
 - **~2,950 directory-visible IV clinics** after enrichment + quality filtering
 - **~2,945 websites crawled** (Crawl4AI + Claude Haiku) for IV-specific field extraction
-- **645 non-IV businesses demoted** during quality cleanup
 - Avg rating 4.9 / ~140 reviews
 - Data quality: 64%+ have services, 63%+ have care setting, ~19% mobile, ~13% pricing
 
-## Recently Shipped
+## Recently Shipped (today, 2026-04-27)
 
-- **2026-04-27** — `<ClinicBadges />` component (commit `9eef214`). Renders 💧 Services / 🚐 Mobile IV / 💲 Pricing pills on `ClinicCard` (size `sm`) and clinic detail page (size `md`) when the corresponding fields are populated. Removed duplicate Mobile pill from card. First user-visible win from Phase 3 enriched data.
-- **2026-04-27** — State URL migration + SEO intro copy (commits `<hash1>` + `<hash2>`). Migrated `/locations/[abbr]` → `/locations/[full-name]` for all 50 states; added structured intros (lead + 2-3 H2s) on top 25 states. Foundation for organic traffic.
+- **`<ClinicBadges />`** (commit `9eef214`). Services/Mobile/Pricing differentiator pills on ClinicCard + clinic detail page.
+- **`<ClinicFilters />`** (commit `5a4c082`). Three filter chips on `/clinics` with URL-param state. `getAllClinics()` accepts optional filters that compose with the visibility filter triple.
+- **Quality ranking score** (`sortByQualityScore` + `dedupeClinicsById` in `src/lib/clinic-ranking.ts`). Replaces `rating_count` default sort with completeness-weighted score. Used on city pages and likely others.
+- **State URL migration** — `/locations/<abbr>` → `/locations/<full-name>` (canonical). New `src/lib/state-slugs.ts` helper. `next.config.ts` 301-redirects all 50 state abbr URLs (and `/<city>` variants). Sitemap, breadcrumbs, locations index, homepage `topCities` array all emit canonical URLs.
+- **State SEO intros** for top 25 states (`src/lib/seo-content/states.ts`). Each ~200 words across lead + 2–3 H2 sections (cost / mobile / popular services). Rendered above city grid via `<StateIntroSection />`. Grounded in real DB stats.
+- **Three guide articles** — `/guides/iv-therapy-cost`, `/guides/types-of-iv-drips`, `/guides/mobile-vs-clinic-iv`. Architecture: typed `Guide` content modules in `src/lib/seo-content/guides/`, reusable `<GuideArticle />` renderer in `src/components/`, thin per-guide page wrappers under `src/app/guides/<slug>/`. JSON-LD `Article` schema for rich results.
+- **`/guides` index page** with card grid linking to all three articles. Top-of-page CTA links to `/clinics`, `/services`, `/mobile-iv`.
+- **Manual indexing requested** in Search Console for high-value URLs (top state pages + all guides).
+
 ## Commands
 
 ```bash
@@ -44,12 +50,29 @@ git push             # Auto-deploys to Vercel
 ## File Structure
 
 ```
-src/app/          → Pages and routes (App Router)
-src/components/   → Reusable UI components
-src/lib/          → Utilities and configs
-src/types/        → TypeScript types
-scripts/          → Python + TypeScript data pipeline scripts (EXCLUDED from tsconfig)
-supabase/         → Database schema and seeds
+src/app/                              → Pages and routes (App Router)
+src/components/
+  ├── ClinicCard.tsx                  → Listing card
+  ├── ClinicBadges.tsx                → Services/Mobile/Pricing pills
+  ├── ClinicFilters.tsx               → URL-param filter chips (client component)
+  ├── StateIntroSection.tsx           → State page SEO intro renderer
+  └── GuideArticle.tsx                → Reusable guide renderer
+src/lib/
+  ├── clinic-ranking.ts               → sortByQualityScore + dedupeClinicsById
+  ├── state-slugs.ts                  → resolveState/stateUrl/stateCityUrl helpers
+  ├── format-clinic-name.ts
+  ├── schema-org.ts
+  ├── seo-content/
+  │   ├── states.ts                   → 25 state intros (typed map)
+  │   └── guides/
+  │       ├── index.ts                → Guide registry
+  │       ├── iv-therapy-cost.ts
+  │       ├── types-of-iv-drips.ts
+  │       └── mobile-vs-clinic-iv.ts
+  └── supabase/server.ts
+src/types/                            → TypeScript types
+scripts/                              → Python + TypeScript data pipeline scripts (EXCLUDED from tsconfig)
+supabase/                             → Database schema and seeds
 ```
 
 ## Database Schema
@@ -61,13 +84,14 @@ Main clinic information table with IV-therapy-specific fields.
 
 **Basic Information:**
 ```sql
-id (uuid), name (text), slug (text, unique, NOT NULL), description (text),
+id (uuid, PRIMARY KEY), name (text), slug (text, UNIQUE, NOT NULL), description (text),
 address (text), city (text), state (text), zip (text),
 phone (text), website (text), verified (boolean),
 mobile_service_available (boolean), created_at, updated_at
 ```
 
-⚠️ **`slug` is NOT NULL** — every INSERT into `clinics` MUST include a slug. Migrations that forget this fail silently.
+⚠️ **`slug` is NOT NULL and UNIQUE** — every INSERT must include a slug. Migrations that forget this fail silently.
+⚠️ **`id` is PRIMARY KEY** (UUID). Confirmed unique in production; do NOT spend time chasing duplicate-id warnings — they're presentation-layer artifacts, not data issues.
 
 **IV-Specific Fields:**
 ```sql
@@ -103,10 +127,10 @@ business_status       -- text
 duplicate_of          -- uuid (FK to clinics.id, null if not a duplicate)
 ```
 
-⚠️ These new columns may not be in generated Supabase types yet — use `as any` cast or `data as unknown as T[]` until types are regenerated.
+⚠️ Phase 3 columns may need `as any` cast in TS until Supabase types regenerate.
 
 #### `places_discovery`
-Staging table for Google Places API results before merge to `clinics`. All ~3,888 rows now marked `merged` / `rejected_quality` / `skipped_duplicate` (no pending).
+Staging table for Google Places API results. All ~3,888 rows merged/rejected/skipped.
 
 #### `clinic_services`
 Detailed drip menu: clinic_id, service_type, price_cents, duration_minutes, description
@@ -117,7 +141,7 @@ Lead capture: clinic_id, first_name, last_name, email, phone, message, source, s
 ### Important Notes
 - `hours_of_operation` is `jsonb` → access with `as any` cast
 - Use `createServiceClient()` for ALL write operations (bypasses RLS)
-- Prices stored in cents (multiply display values by 100)
+- Prices stored in cents
 
 ## Supabase Clients
 
@@ -135,9 +159,9 @@ const supabase = createServiceClient()  // No await needed
 
 ## ⚠️ CRITICAL: Supabase 1,000-Row Default Limit
 
-**Supabase silently caps every `.select()` at 1,000 rows.** This bug bit `/locations`, `/services`, `/mobile-iv`, `/compare`, and `/search` after the Phase 3 merge made the dataset large enough to hit the limit. All have been fixed — but **any new aggregation query must paginate via `.range()`**.
+**Supabase silently caps every `.select()` at 1,000 rows.** Pagination is mandatory for any aggregation query.
 
-### Standard pagination pattern (use everywhere)
+### Standard pagination pattern
 
 ```typescript
 const PAGE_SIZE = 1000
@@ -151,7 +175,6 @@ while (true) {
     .eq('is_iv_clinic', true)
     .eq('enrichment_status', 'enriched')
     .is('duplicate_of', null)
-    // ... other filters
     .range(offset, offset + PAGE_SIZE - 1)
 
   if (error || !data || data.length === 0) break
@@ -163,83 +186,36 @@ while (true) {
 
 ### Standard "directory-visible" filter triple
 
-Use these three filters together on every public-facing aggregation query:
-
 ```typescript
 .eq('is_iv_clinic', true)
 .eq('enrichment_status', 'enriched')
 .is('duplicate_of', null)
 ```
 
-Optionally add `.in('match_confidence', ['high', 'medium', 'low'])` to exclude `address_only` confidence rows.
+The `applyVisibilityFilters()` helper in `src/app/actions/clinics.ts` codifies this — use it everywhere.
 
-### Files using this pattern (verified working)
-- `src/app/sitemap.ts`
-- `src/app/locations/page.tsx`
-- `src/app/locations/[state]/page.tsx`
-- `src/app/locations/[state]/[city]/page.tsx`
-- `src/app/services/page.tsx`
-- `src/app/services/[type]/page.tsx`
-- `src/app/mobile-iv/page.tsx`
-- `src/app/compare/page.tsx`
-- `src/app/search/page.tsx`
-- `src/app/actions/clinics.ts` (`getClinicsByState`, etc.)
+## State URL Resolution Pattern
 
-## TypeScript Patterns
+URLs use full-name slugs only: `/locations/florida` (not `/locations/fl`). Old abbr URLs 301-redirect via `next.config.ts`.
 
 ```typescript
-// hours_of_operation access
-(clinic.hours_of_operation as any).openNow
-(clinic.hours_of_operation as any).weekdayDescriptions
+import { resolveState, stateUrl, stateCityUrl, SLUG_BY_ABBR } from '@/lib/state-slugs'
 
-// is_iv_clinic and other Phase 3 columns (until types are regenerated)
-(clinic as any).is_iv_clinic
-(clinic as any).enrichment_status
-(clinic as any).duplicate_of
-
-// Sitemap client
-const supabase = await createClient()  // ✅ Must await
-
-// Bulk casting Supabase response
-const rows = data as unknown as Clinic[]
+// Inside a page handler that receives `state` param:
+const resolved = resolveState(state)  // accepts 'fl', 'FL', 'florida', 'Florida'
+if (!resolved) notFound()
+// resolved.slug = 'florida' (canonical)
+// resolved.name = 'Florida'
+// resolved.abbr = 'FL'
 ```
 
-## tsconfig.json
-
-```json
-"include": ["next-env.d.ts", "src/**/*.ts", "src/**/*.tsx", ".next/types/**/*.ts"]
+When linking to a state page from clinic data (`clinic.state = 'FL'`):
+```typescript
+href={stateUrl(clinic.state) || '#'}        // → /locations/florida
+href={stateCityUrl(clinic.state, clinic.city) || '#'}  // → /locations/florida/miami
 ```
 
-Do NOT add `scripts/` to include — it will break the Vercel build.
-
-## Data Formatting
-
-### Title Case (`src/lib/format-clinic-name.ts`)
-- Medical abbreviations stay uppercase: MD, DO, NP, LLC, IV, RN
-- Roman numerals preserved: II, III, V
-- Small words lowercase: of, the, and, in, at, to, for
-
-### Phone: `(XXX) XXX-XXXX`
-
-## Service Type Slugs (for URL routing)
-
-```
-hydration → /services/hydration
-vitamin-drips → /services/vitamin-drips
-nad-plus → /services/nad-plus
-athletic-recovery → /services/athletic-recovery
-hangover-relief → /services/hangover-relief
-immune-support → /services/immune-support
-beauty-anti-aging → /services/beauty-anti-aging
-weight-loss → /services/weight-loss
-migraine-relief → /services/migraine-relief
-b12-shots → /services/b12-shots
-glutathione → /services/glutathione
-```
-
-## Ranking / Sort Score (Priority 1 — to implement)
-
-Default sort on every listing page should use a quality score that surfaces complete listings first:
+## Quality Ranking Score
 
 ```
 score = (price_range_min not null ? 3 : 0)
@@ -249,40 +225,57 @@ score = (price_range_min not null ? 3 : 0)
       + (rating_value * log10(rating_count + 1))
 ```
 
-Sort desc by score on `/clinics`, `/locations/[state]`, `/locations/[state]/[city]`, `/services/[type]`, etc.
+Sort `desc` after fetching. Implementation in `src/lib/clinic-ranking.ts`. Tune weights there if needed; document weight changes in this file.
+
+## SEO Content Authoring
+
+### State intros
+- Source: `src/lib/seo-content/states.ts`
+- Type: `Record<slug, StateIntro>` where `StateIntro = { lead, sections: [{heading, body}] }`
+- Renderer: `<StateIntroSection intro={intro} />` returns null if no intro for that state
+- States covered (top 25 by clinic count): CA, TX, FL, NY, NC, OH, PA, TN, IL, GA, SC, WA, CO, VA, AZ, UT, MA, LA, NV, CT, MI, MD, WI, AR, OK
+- Refresh stats quarterly using SQL queries from session 4/27
+
+### Guide articles
+- Source: `src/lib/seo-content/guides/<slug>.ts` exports a typed `Guide`
+- Registry: `src/lib/seo-content/guides/index.ts` maps slug → guide
+- Renderer: `<GuideArticle guide={guide} />` handles paragraphs, lists, callouts, internal links, TOC
+- Page wrapper: thin file at `src/app/guides/<slug>/page.tsx` looks up the guide + injects JSON-LD Article schema
+- To add a new guide: create the content file, register it in `index.ts`, copy a page.tsx and change the SLUG constant
 
 ## SEO
 
 ### Implemented ✅
 - `metadataBase` set in layout.tsx (`https://ivhealthclinics.com`)
-- Default OG + Twitter Card tags with `images: ['/og-default.png']` in layout.tsx
+- Default OG + Twitter Card tags with `images: ['/og-default.png']`
 - Clinic detail pages: `generateMetadata()` with OG tags + `alternates.canonical`
-- Schema.org: `HealthAndBeautyBusiness` + `LocalBusiness` JSON-LD on clinic pages
-  - Helper: `src/lib/schema-org.ts` → `generateClinicSchema(clinic)`
-  - Injected via `<script type="application/ld+json">` in `src/app/clinics/[slug]/page.tsx`
-- Sitemap: `src/app/sitemap.ts` → `/sitemap.xml` (paginated, all directory-visible clinics)
-  - Uses direct `@supabase/supabase-js` client (NOT cookie-based `@/lib/supabase/server`)
-  - Paginates in batches of 1,000 via `.range()` to bypass Supabase default limit
+- Schema.org: `HealthAndBeautyBusiness` + `LocalBusiness` JSON-LD on clinic pages; `Article` JSON-LD on guides
+- Sitemap: `src/app/sitemap.ts` → paginated, all directory-visible clinics, canonical state URLs
+- Sitemap uses direct `@supabase/supabase-js` (NOT cookie-based client) because `cookies()` fails at Vercel build time
 - Robots: `src/app/robots.ts` → `/robots.txt`
-- Google Analytics: `G-4ZW806CWHT` via `src/components/GoogleAnalytics.tsx`
-- Google Search Console: configured, sitemap submitted
+- Google Analytics: `G-4ZW806CWHT`
+- Google Search Console: configured, sitemap submitted, manual indexing requested for top URLs (4/27)
+- State URL migration to canonical full-name slugs
+- Top 25 state intros with H2 structure
+- 3 long-form guide articles + index page
 
 ### Outstanding ⬜
 - Verify `alternates.canonical` on all dynamic page types (state, city, service)
 - Custom favicon + apple-touch-icon (180×180) + 192/512 PWA icons
-- Confirm Search Console sees ~3,000 updated URLs after Phase 3 merge
-- Unique 150–200 word intros for top 25 city pages
-- Unique intros for top 10 service pages
-- Hybrid SEO routes need depth: `/services/nad-plus/florida`, `/mobile-iv/florida`, `/services/hydration/miami`
-
-### Sitemap Note
-The sitemap **cannot** use `createClient` from `@/lib/supabase/server` because that calls `cookies()` which fails at Vercel build time. Instead it imports `createClient` directly from `@supabase/supabase-js`.
+- `alternates.canonical` set on guide pages (currently in `generateMetadata` for cost guide; verify others)
+- Service intro copy for `/services/[type]` pages (top 10)
+- Hybrid SEO routes: `/services/nad-plus/florida`, `/mobile-iv/florida`
+- Form field accessibility warning (form needs id or name attr)
+- "Request Info" lead form on clinic detail pages
+- Resend domain DKIM/SPF setup
+- States 26–50 SEO intros
+- Audit `/mobile-iv/[state]` and `/services/[service]/[state]` route handlers (sitemap emits them; unclear if pages exist)
 
 ## Email Flow
 
-Form submit → `createLead()` → Supabase (service role) → Resend notification → ImprovMX → info@tenafterten.com
+Form submit → `createLead()` → Supabase (service role) → Resend notification → ImprovMX → info@tenafterten.com.
 
-⬜ "Request Info" button on clinic detail pages — not yet implemented (Priority 4)
+⬜ Lead form not yet implemented on clinic pages (Priority 4 outstanding).
 
 ## Python Scripts
 
@@ -295,43 +288,31 @@ load_dotenv(Path(__file__).parent.parent / '.env.local')
 
 Env var names for Python: `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `ANTHROPIC_API_KEY`
 
-## Phase 3 Pipeline (completed — for reference)
+## Critical Session Learnings (cumulative)
 
-The data pipeline that built the current dataset, in order:
-
-1. **NPI seed** → `scripts/seed-npi.ts` → 4,651 raw clinic candidates from NPPES
-2. **Brave Search URL enrichment** → ~5,400 clinics searched, ~1,236 verified URLs kept (Brave paid plan, ~$23 total). Aggressive aggregator/NPI-lookup domain filtering required.
-3. **Google Places discovery** → 34 metros × 5 keywords gap-fill run (~$5.44) → 3,888 rows in `places_discovery` after dedup
-4. **Schema migration** → added `source`, `enrichment_status`, `match_confidence`, `google_place_id`, `google_photo_refs`, `business_status`, `duplicate_of`. Backfilled NPI rows with `source='npi'`. Inline slug generation needed during merge INSERTs.
-5. **Merge places_discovery → clinics** → 3,540 high/medium-confidence rows merged, 330 quality-dropped, 19 overlap-skipped
-6. **Noise filter** → demoted 96 false positives (urgent cares, hospitals, ERs, Whole Foods, vet hospital, Canadian clinic) by name pattern matching
-7. **Crawl4AI + Claude Haiku extraction** → ~2,945 websites crawled for service_types, care_setting, supervision_level, pricing, credentials
-8. **Quality cleanup** → 645 non-IV businesses demoted based on crawled content
-9. **Final state** → ~2,950 verified, directory-visible IV clinics
-
-## Key Differences from HormoneMap
-- Primary data source: Google Places (not NPI). NPI was tried first but yielded only ~3.3% directory-relevant results vs Places' ~99%.
-- Key filter: `service_types` (not modalities)
-- Care model: `care_setting` (in_clinic/mobile_only/both) instead of telehealth
-- Safety fields: `sterile_compounding`, `ingredient_sourcing`, `adverse_event_policy`
-- Schema.org: `HealthAndBeautyBusiness` (not `MedicalBusiness`) — wellness, not medical
-
-## Critical Session Learnings (Phase 3)
-
-1. **Supabase 1,000-row limit** — silent truncation, must `.range()`-paginate every aggregation. See pattern above.
-2. **`clinics.slug` is NOT NULL** — any INSERT must include slug; generate inline during migrations.
-3. **Google Places has ~3% noise** — even with location bias and "IV therapy" keyword. Filter by name patterns post-merge.
+1. **Supabase 1,000-row limit** — silent truncation, must `.range()`-paginate every aggregation.
+2. **`clinics.slug` is NOT NULL** — every INSERT must include slug; generate inline during migrations.
+3. **Google Places has ~3% noise** — filter by name patterns post-merge.
 4. **NPI is consumer-mismatched for wellness directories** — Places yields 30× better directory relevance.
-5. **Brave Search free plan caps at 2,000/month** — 429 errors continue even after waiting; new key under paid plan required (free key doesn't inherit paid quota).
-6. **Run SQL directly in Supabase Dashboard** for migrations rather than through Claude Code — fewer surprises.
+5. **Brave Search free plan caps at 2,000/month** — new key under paid plan required.
+6. **Run SQL directly in Supabase Dashboard** for migrations rather than through Claude Code.
 7. **Always commit `package.json` + `package-lock.json` together** — Vercel won't see new deps otherwise.
 8. **Sitemap must use direct `@supabase/supabase-js`** — `cookies()` is unavailable at Vercel build time.
+9. **Cache clear** — `rm -rf .next` if dev server gives phantom syntax errors after adding new components.
+10. **Phase 3 columns may need `as any` cast** until Supabase types regenerate.
+11. **`'use client'` is required** at top of components using `useRouter`/`useSearchParams`/`usePathname`.
+12. **Next.js 16 made `searchParams` and `params` async** — both are Promises, must `await` them.
+13. **`next.config.ts` redirects use `permanent: true`** for 301; dev server shows them as 308 (Next dev quirk), production shows 301.
+14. **Internal links should emit canonical URLs directly** rather than relying on redirects — `next.config.ts` redirects are insurance, not architecture.
+15. **State page handlers expect full-name slugs** — abbr inputs are intercepted by redirect rules in `next.config.ts`, never reach the handler.
+16. **Search Console: don't keep resubmitting the sitemap.** It's polled automatically. For high-value pages, use URL Inspection → Request Indexing instead (faster, capped ~10/day).
+17. **Duplicate-key React warnings ≠ database duplicates.** When seen, run the diagnostic SQL first; the DB might be clean and the warning is presentation-layer noise. `dedupeClinicsById()` is acceptable mitigation.
 
 ## Documentation Files
 
-- **CLAUDE.md** — HormoneMap reference (sister site, mostly complete)
-- **CLAUDE2.md** — this file, IVHealthClinics technical reference
+- **CLAUDE.md** — this file, IVHealthClinics technical reference (was CLAUDE2.md in earlier sessions)
+- **IVHEALTHCLINICS_TODO_2026-04-27.md** — 4/27 TODO (mostly complete, mark items as done)
+- **IVHEALTHCLINICS_TODO_2026-04-28+.md** — next-up TODO (see below for what to make of it)
 - **IVHEALTHCLINICS_ROADMAP.md** — phase-by-phase forward roadmap
-- **IVHEALTHCLINICS_TODO_2026-04-27.md** — current priorities (latest TODO)
 - **IV_FIELDS_GUIDE.md** — IV-specific field extraction reference
 - **IVHEALTHCLINICS.md** — project-level overview
