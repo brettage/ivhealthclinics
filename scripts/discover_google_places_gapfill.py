@@ -64,7 +64,7 @@ REQUEST_DELAY_SEC = 0.3
 MAX_RESULTS_PER_SEARCH = 20
 LOCATION_BIAS_RADIUS_M = 15_000  # smaller than main 25km — suburb-focused
 MAX_RETRIES = 2
-SEARCH_HARD_CAP = 200
+SEARCH_HARD_CAP = 300
 COST_PER_SEARCH = 0.032
 
 # 30 suburban/secondary metros for gap-fill
@@ -122,6 +122,25 @@ GAPFILL_METROS = [
     {'name': 'Sarasota, FL',                     'lat': 27.3364, 'lng': -82.5307},
     {'name': 'Boulder, CO',                      'lat': 40.0150, 'lng': -105.2705},
     {'name': 'Reno, NV',                         'lat': 39.5296, 'lng': -119.8138},
+
+    # Additional state/territory gap-fill markets
+    {'name': 'Burlington, VT',                    'lat': 44.4759, 'lng': -73.2121},
+    {'name': 'Portland, ME',                      'lat': 43.6591, 'lng': -70.2568},
+    {'name': 'Billings, MT',                      'lat': 45.7833, 'lng': -108.5007},
+    {'name': 'Fargo, ND',                         'lat': 46.8772, 'lng': -96.7898},
+    {'name': 'Sioux Falls, SD',                   'lat': 43.5446, 'lng': -96.7311},
+    {'name': 'Charleston, WV',                    'lat': 38.3498, 'lng': -81.6326},
+    {'name': 'Anchorage, AK',                     'lat': 61.2181, 'lng': -149.9003},
+    {'name': 'Manchester, NH',                    'lat': 42.9956, 'lng': -71.4548},
+    {'name': 'San Juan, PR',                      'lat': 18.4655, 'lng': -66.1057},
+    {'name': 'Cheyenne, WY',                      'lat': 41.1400, 'lng': -104.8202},
+    {'name': 'Wilmington, DE',                    'lat': 39.7447, 'lng': -75.5484},
+    {'name': 'Providence, RI',                    'lat': 41.8240, 'lng': -71.4128},
+    {'name': 'Portland, OR',                      'lat': 45.5152, 'lng': -122.6784},
+    {'name': 'Jackson, MS',                       'lat': 32.2988, 'lng': -90.1848},
+    {'name': 'Boise, ID',                         'lat': 43.6150, 'lng': -116.2023},
+    {'name': 'Des Moines, IA',                    'lat': 41.5868, 'lng': -93.6250},
+    {'name': 'Honolulu, HI',                      'lat': 21.3069, 'lng': -157.8583},
 ]
 
 KEYWORDS = [

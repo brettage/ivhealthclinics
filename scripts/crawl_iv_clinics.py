@@ -186,13 +186,15 @@ Extract the following as a JSON object. Use null for anything not clearly stated
   "membership_available": null, // bool: do they offer membership or subscription plans?
   "walk_ins_accepted": null,   // bool
   "sterile_compounding": null, // bool: USP 797 sterile compounding or sterile pharmacy mentioned?
-  "administering_credentials": [] // list of: RN, NP, PA, MD, DO, paramedic
+  "administering_credentials": [], // list of: RN, NP, PA, MD, DO, paramedic
+  "email": null              // string: any visible email address from the page content, or null if none present
 }}
 
 Rules:
 - If "is_iv_clinic" is false, set all other fields to null / empty.
 - service_types must only contain values from the list above.
 - price_range_min/max should be integers in dollars, not cents.
+- email must be an email address visibly present in the page content; do not invent or infer it.
 - Respond with ONLY the JSON object. No explanation, no markdown fences."""
 
 

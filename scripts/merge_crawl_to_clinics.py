@@ -26,6 +26,7 @@ Field update rules (conservative):
   walk_ins_accepted      → fill NULL only
   sterile_compounding    → fill NULL only
   administering_credentials → MERGE (array union)
+  email                  → fill NULL only
   data_sources           → append 'website_crawl' if not already present
   last_crawled_at        → always set
 
@@ -142,6 +143,11 @@ def build_enrich_payload(clinic: dict, crawl: dict, crawled_at: str | None) -> d
         if set(merged_creds) != set(existing_creds):
             updates['administering_credentials'] = merged_creds
 
+    # email — fill NULL only
+    crawl_email = (crawl.get('email') or '').strip()
+    if clinic.get('email') is None and crawl_email:
+        updates['email'] = crawl_email
+
     # data_sources — append 'website_crawl' if not present
     existing_sources = clinic.get('data_sources') or []
     if 'website_crawl' not in existing_sources:
@@ -201,7 +207,7 @@ def fetch_clinic(supabase, clinic_id: str) -> dict | None:
             'id, service_types, care_setting, supervision_level, '
             'mobile_service_available, price_range_min, price_range_max, '
             'membership_available, walk_ins_accepted, sterile_compounding, '
-            'administering_credentials, data_sources, last_crawled_at, '
+            'administering_credentials, email, data_sources, last_crawled_at, '
             'enrichment_status, name'
         )
         .eq('id', clinic_id)
@@ -222,7 +228,7 @@ def fetch_clinics_batch(supabase, clinic_ids: list[str]) -> dict[str, dict]:
             'id, service_types, care_setting, supervision_level, '
             'mobile_service_available, price_range_min, price_range_max, '
             'membership_available, walk_ins_accepted, sterile_compounding, '
-            'administering_credentials, data_sources, last_crawled_at, '
+            'administering_credentials, email, data_sources, last_crawled_at, '
             'enrichment_status, name'
         )
         .in_('id', clinic_ids)
@@ -389,7 +395,7 @@ def main():
             for field in ('service_types', 'care_setting', 'supervision_level',
                           'mobile_service_available', 'price_range_min', 'price_range_max',
                           'membership_available', 'walk_ins_accepted', 'sterile_compounding',
-                          'administering_credentials'):
+                          'administering_credentials', 'email'):
                 if field in payload and field != 'last_crawled_at' and field != 'data_sources':
                     field_fill_counts[field] = field_fill_counts.get(field, 0) + 1
 

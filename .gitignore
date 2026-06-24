@@ -51,3 +51,5 @@ scripts/google_places_duplicates.log
 
 # IDE
 .idea/
+scripts/__pycache__/
+scripts/backfill_iv_emails_checkpoint.json

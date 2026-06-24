@@ -2,19 +2,21 @@
 
 Instructions for Claude Code when working on the IVHealthClinics project.
 
-**Last updated:** April 27, 2026 (end of day — Priorities 1–3 shipped)
+**Last updated:** June 24, 2026 (gap-fill expansion + email backfill)
 
 ## Project Overview
 
 IVHealthClinics (ivhealthclinics.com) is a directory for IV hydration, vitamin drips, and infusion wellness clinics. Built with Next.js 16, TypeScript, Tailwind CSS 4, and Supabase. Sister site to hormonemap.com.
 
-## Current State (as of 2026-04-27 EOD)
+## Current State (as of 2026-06-24)
 
-**Priorities 1–3 from the 4/27 TODO are SHIPPED.** Site is fully data-visible, SEO-foundationed, and has its first three guide articles live. Next phase is wait-and-watch (Search Console takes weeks to process changes).
+**Priorities 1–3 from the 4/27 TODO are SHIPPED.** Site is fully data-visible, SEO-foundationed, and has its first three guide articles live. June gap-fill added thin-state coverage and fixed email extraction/backfill.
 
-- **8,191 total clinics** in DB (4,651 NPI seed + 3,540 Google Places discovered)
-- **~2,950 directory-visible IV clinics** after enrichment + quality filtering
+- **8,413 total clinics** in DB (4,651 NPI seed + Google Places discovered; +225 from gap-fill expansion, minus 3 Canadian businesses removed)
+- **~3,175 directory-visible IV clinics** after enrichment + quality filtering. The newest +222 are **PROVISIONAL**: `is_iv_clinic=true` was set from name/category matching only, not crawl-verified. They need the same Phase 3 crawl treatment used on the original cohort, which demoted 645 false positives.
 - **~2,945 websites crawled** (Crawl4AI + Claude Haiku) for IV-specific field extraction
+- **1,741 clinics now have email addresses**. Email coverage was 0 because the original crawl prompt omitted `email` and the crawl merge dropped it; both bugs are fixed, and existing data was backfilled from raw HTML.
+- **Geographic coverage expanded** meaningfully in ME, NH, AK, ND, SD, MT, WV, WY, VT, DE, and PR, which were previously zero or thin.
 - Avg rating 4.9 / ~140 reviews
 - Data quality: 64%+ have services, 63%+ have care setting, ~19% mobile, ~13% pricing
 
@@ -271,6 +273,12 @@ Sort `desc` after fetching. Implementation in `src/lib/clinic-ranking.ts`. Tune 
 - States 26–50 SEO intros
 - Audit `/mobile-iv/[state]` and `/services/[service]/[state]` route handlers (sitemap emits them; unclear if pages exist)
 
+### On The Horizon
+- Crawl the new ~222 gap-fill clinics (`data_sources @> ARRAY['google_places_gapfill']`) to verify `is_iv_clinic` and extract service/pricing fields, matching the treatment the original 2,945 crawled clinics received.
+- Outreach campaign: 1,741 cleaned emails are available. Dedupe send lists by email, not clinic row, because legitimate multi-location franchises often share one corporate inbox.
+- Resend DKIM/SPF is still not configured for `ivhealthclinics.com`, which blocks outbound campaign readiness regardless of list quality.
+- Hygiene/parity items remain: favicon, lead capture button, canonical audit.
+
 ## Email Flow
 
 Form submit → `createLead()` → Supabase (service role) → Resend notification → ImprovMX → info@tenafterten.com.
@@ -287,6 +295,18 @@ load_dotenv(Path(__file__).parent.parent / '.env.local')
 ```
 
 Env var names for Python: `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `ANTHROPIC_API_KEY`
+
+### Scripts Reference
+
+| Script | Purpose / notes |
+| --- | --- |
+| `scripts/discover_google_places_full.py` | Full 100-metro Google Places discovery runner with resumability through `discovery_runs`. |
+| `scripts/discover_google_places_gapfill.py` | Gap-fill Google Places discovery. June update appended 17 metros for previously zero/thin-coverage states and raised `SEARCH_HARD_CAP` from 200 to 300. Safe to re-run because completed original metro/keyword pairs are skipped via `discovery_runs` exact name matching. |
+| `scripts/merge_places_discovery_pending.py` | One-time merge for `places_discovery` rows where `merge_status='pending'`. Applies 5+ review quality filter, closed-business filter, name/type noise filter, `google_place_id` duplicate check, and slug generation matching `import-npi-to-supabase.ts`. |
+| `scripts/crawl_iv_clinics.py` | Crawl4AI + Claude Haiku extractor for Places-discovered clinics. June fix: added `email` to the Claude extraction schema; it was missing and caused 0% email coverage from the original crawl. |
+| `scripts/merge_crawl_to_clinics.py` | Merges crawl-extracted structured fields into `clinics`. June fix: added `email` to `build_enrich_payload()` so extracted emails are no longer silently dropped before reaching `clinics.email`. |
+| `scripts/backfill_iv_emails.py` | One-time regex email backfill. Fetches raw HTML from homepage, `/contact`, and `/contact-us`; no LLM calls; resumable via local checkpoint file. |
+| `scripts/import-npi-to-supabase.ts` | NPI import pipeline and canonical clinic slug-generation reference. |
 
 ## Critical Session Learnings (cumulative)
 
@@ -307,6 +327,11 @@ Env var names for Python: `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `ANTHROPI
 15. **State page handlers expect full-name slugs** — abbr inputs are intercepted by redirect rules in `next.config.ts`, never reach the handler.
 16. **Search Console: don't keep resubmitting the sitemap.** It's polled automatically. For high-value pages, use URL Inspection → Request Indexing instead (faster, capped ~10/day).
 17. **Duplicate-key React warnings ≠ database duplicates.** When seen, run the diagnostic SQL first; the DB might be clean and the warning is presentation-layer noise. `dedupeClinicsById()` is acceptable mitigation.
+18. **Email regex false positives include asset filenames.** Patterns like `[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}` match `hero@2x.jpg` and `flags@2x.png`; reject known non-email extensions (`jpg`, `png`, `css`, `js`, etc.) in the domain position.
+19. **Raw-HTML email extraction picks up third-party addresses.** Font licenses and widget code can expose emails like `impallari@gmail.com`, `info@indiantypefoundry.com`, `team@latofonts.com`, `support@vagaro.com`, `support@webador.com`, and `email@typeform.com`. Future runs need a known-junk-domain/address list.
+20. **Puerto Rico Places address components need explicit normalization.** Google can return municipio names like Bayamon, Carolina, or Guaynabo in the state field position instead of `PR`; do not rely only on a US-states allowlist.
+21. **Noise filters need country checks.** The hospital/urgent-care/vet keyword filter missed 3 Canadian businesses that were merged before manual cleanup. Original Phase 3 had a Canadian-clinic noise category; add that check before future gap-fill merges.
+22. **Merge duplicate detection by `google_place_id` is incomplete.** It does not catch overlap against the ~4,415 NPI-seeded rows with null `enrichment_status` and no `google_place_id`; the same physical clinic can exist twice if NPI and Places both found it.
 
 ## Documentation Files
 
