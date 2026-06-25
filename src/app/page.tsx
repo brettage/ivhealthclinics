@@ -64,10 +64,10 @@ export default async function HomePage() {
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 text-center">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white tracking-tight">
-            Find Your IV Therapy Clinic
+            Compare IV Therapy Clinics on What Actually Matters
           </h1>
           <p className="mt-4 text-lg sm:text-xl text-white/80 max-w-2xl mx-auto">
-            Compare pricing, services, and credentials for IV hydration, vitamin drips, and NAD+ therapy clinics near you.
+            The only IV therapy directory that shows per-drip pricing, mobile vs. in-clinic availability, medical supervision level, and safety disclosures like sterile compounding — side by side, before you book.
           </p>
 
           <div className="mt-8">
