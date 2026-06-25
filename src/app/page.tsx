@@ -1,7 +1,23 @@
 import Link from 'next/link'
+import type { Metadata } from 'next'
 import SearchBar from '@/components/SearchBar'
 import { getFeaturedClinics, getClinicCount } from '@/app/actions/clinics'
 import ClinicCard from '@/components/ClinicCard'
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: 'https://ivhealthclinics.com/',
+  },
+}
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'IVHealthClinics',
+  url: 'https://ivhealthclinics.com/',
+  description:
+    'IVHealthClinics is a nationwide directory that helps people compare IV hydration and infusion clinics on per-drip pricing, mobile vs in-clinic availability, medical supervision level, and safety disclosures.',
+}
 
 export default async function HomePage() {
   const [clinics, clinicCount] = await Promise.all([
@@ -31,6 +47,13 @@ export default async function HomePage() {
 
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(organizationSchema).replace(/</g, '\\u003c'),
+        }}
+      />
+
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700">
         {/* Background decoration */}

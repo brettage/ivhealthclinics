@@ -34,11 +34,11 @@ export default function TypesOfIvDripsGuidePage() {
     description: guide.description,
     datePublished: guide.publishedAt,
     dateModified: guide.updatedAt,
-    author: { '@type': 'Organization', name: 'IV Health Clinics' },
+    author: { '@type': 'Person', name: 'IVHealthClinics Editorial Team' },
     publisher: {
       '@type': 'Organization',
-      name: 'IV Health Clinics',
-      url: 'https://ivhealthclinics.com',
+      name: 'IVHealthClinics',
+      url: 'https://ivhealthclinics.com/',
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
@@ -50,7 +50,9 @@ export default function TypesOfIvDripsGuidePage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(articleSchema).replace(/</g, '\\u003c'),
+        }}
       />
       <GuideArticle guide={guide} />
     </>

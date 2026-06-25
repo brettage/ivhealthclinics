@@ -8,6 +8,18 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/',
         disallow: ['/api/', '/_next/'],
       },
+      {
+        userAgent: [
+          'CCBot',
+          'ChatGPT-User',
+          'Claude-User',
+          'ClaudeBot',
+          'GPTBot',
+          'Google-Extended',
+          'PerplexityBot',
+        ],
+        allow: '/',
+      },
     ],
     sitemap: 'https://ivhealthclinics.com/sitemap.xml',
   }

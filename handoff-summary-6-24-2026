@@ -1,0 +1,78 @@
+# IVHealthClinics — Session Handoff (June 24, 2026)
+
+## Summary
+
+First IVHealthClinics work since the 4/27 EOD checkpoint. Goal: bring the site to rough feature/data parity with HormoneMap. Three threads worked: claims queue cleanup, email backfill, geographic expansion. All three closed out this session.
+
+## 1. Claims Queue
+
+- Found 4 pending claims sitting unreviewed since launch (4/28).
+- 3 were internal QA test data (Brett's own email, placeholder phone `555-555-1212`, "test" in clinic name field) — rejected.
+- 1 was real: **AnatomicL Medical Aesthetics** (Cherry Hill, NJ), claimer Dr. Harpreet Singh. Verified via web search — claimer name matched the publicly-listed Medical Director, phone matched the clinic's own site, email domain matched. Approved, `verified` flag flipped, phone backfilled (was null in DB).
+- Queue is now empty: 0 pending, 1 approved, 3 rejected.
+
+## 2. Email Backfill
+
+**Starting point:** 0 of 2,953 directory-visible clinics had an email on file, despite the field existing in the schema and being referenced in `IV_FIELDS_GUIDE.md`.
+
+**Root cause (found via Codex investigation):**
+- `crawl_iv_clinics.py`'s live Claude Haiku extraction prompt never asked for `email` — the schema in the docs and the schema actually used by the script had drifted apart.
+- Even if it had, `merge_crawl_to_clinics.py`'s `build_enrich_payload()` never read or wrote the email field — it would've been silently dropped before reaching `clinics`.
+- Crawl4AI's pipeline excludes nav/header/footer (where contact emails usually live) before generating markdown, and `mailto:` links collapse to just their anchor text ("Email us") in markdown conversion — so even a fixed prompt would have low yield against the existing crawl architecture.
+
+**Fix:**
+- Patched both scripts (email now in extraction schema + merge payload) for future crawls.
+- Built `scripts/backfill_iv_emails.py` — a one-time, zero-LLM-cost regex backfill. Fetches raw HTML (homepage + `/contact` + `/contact-us`), extracts via regex (mailto hrefs + plain-text pattern), filters junk, prefers same-domain matches, checkpointed/resumable.
+
+**Bugs caught during the run (live, not just dry-run):**
+- Regex matched image filenames (`hero@2x.jpg`, `flags@2x.png`) as if they were emails — the TLD pattern is indistinguishable from a file extension pattern. Fixed by rejecting known non-email extensions in the domain position. 2 affected rows found and corrected.
+- After full backfill, manual audit of duplicate-email clusters surfaced font-foundry license-attribution emails leaking from `@font-face` CSS (`impallari@gmail.com`, `info@indiantypefoundry.com`, `team@latofonts.com`, `hello@rfuenzalida.com`), plus third-party widget/platform addresses (`support@vagaro.com`, `support@webador.com`, `email@typeform.com`) and literal placeholders (`your@email.com`, `email@email.com`, `user123@email.com`, `hi@mystore.com`, `info@mysite.com`). 13 junk addresses nulled out across ~50 affected rows.
+
+**Result:** 1,741 real emails on file. Most duplicate-email clusters that remain are legitimate — multi-location franchises (The DRIPBaR: 58 locations/1 email, Hydration Room: 36, LIVE Hydration Spa: 23, Vivo Infusion: 14, Next Health: 13, etc.) sharing one corporate contact. **Important for outreach:** dedupe the send list by email, not by clinic row, or these franchises get hit with dozens of duplicate "claim your listing" emails.
+
+**Outstanding:** `info@altamontesprings.4everyoung.com` matches 7 different 4Ever Young franchise locations across unrelated states — unclear if legitimate shared contact or templated default. Excluded from send-list assumption until verified.
+
+## 3. Geographic Expansion
+
+**Finding:** Original Phase 3 Google Places discovery only covered 34 metros. Six states had zero directory-visible clinics (VT, ME, MT, ND, SD, WV); several more were near-zero (AK, NH, PR, WY, DE).
+
+**Action:** Extended `scripts/discover_google_places_gapfill.py` with 17 new metro targets (one per underserved state/territory). Script's resumability (keyed on `discovery_runs` by keyword+city pair) meant the original 34 metros were untouched — confirmed 11 of the 17 ran fresh, while 6 (Boise ID, Des Moines IA, Honolulu HI, Jackson MS, Portland OR, Providence RI) turned out to already have a prior April 25 run, correctly skipped.
+
+**Cost:** $1.76 actual (vs. ~$2.72 estimated) — 55 new (keyword, city) pairs, 288 new `places_discovery` rows, 0 errors.
+
+**Merge:** No reusable merge script existed from the original migration (it was a one-off SQL run, never committed). Built `scripts/merge_places_discovery_pending.py` — processes only `merge_status='pending'` rows, applies quality filter (5+ reviews), closed-business filter, noise filter (hospital/urgent-care/vet/pharmacy keyword patterns), duplicate check against `clinics.google_place_id`, generates slugs matching the exact algorithm in `import-npi-to-supabase.ts` (with real-DB collision checking, not just batch-local).
+
+**Result:** 225 merged, 46 rejected (low review count), 16 rejected (noise), 1 skipped (duplicate). Zero errors.
+
+**Bugs caught post-merge:**
+- 23 Puerto Rico clinics had municipality names (Bayamón, Carolina, Guaynabo, etc.) in the `state` column instead of `PR` — Google Places returns the municipio as the state-level address component for PR addresses. Normalized to `PR`.
+- 1 US Virgin Islands clinic had the city name in `state`. Normalized to `VI`.
+- 3 Canadian businesses (Kemptville ON, Brossard QC, Montréal QC) were merged before being caught — the noise filter checks name/type keywords but not country. Original Phase 3 pipeline had an explicit Canadian-exclusion step; the new merge script doesn't yet. Removed manually; **add country check if gap-fill is run again.**
+
+**Net new clinics:** 222 (225 merged minus 3 removed Canadian).
+
+**Final state count for target states** (data_sources @> ARRAY['google_places_gapfill']): ME 26, PR 23, NH 23, AK 22, ND 21, SD 18, MT 18, WV 17, WY 13, VT 12, DE 12, plus smaller spillover into CO/PA/MN/NY/NJ/FL/VI/IL from search radius overlap.
+
+## Known Gaps / Not Yet Done
+
+1. **The 222 new clinics are unverified.** `is_iv_clinic=true` was set from name/category matching only — same starting state the original 2,945 were in before crawling demoted 645 false positives. These need the same crawl treatment before fully trusting the directory-visible count.
+2. **Duplicate detection blind spot:** merge only checked `google_place_id` against existing `clinics` rows. The ~4,415 NPI-seeded rows sitting at `enrichment_status=null` have no `google_place_id`, so a physical clinic discovered by both NPI seeding and this gap-fill could exist as two separate rows. Not yet audited.
+3. **Resend DKIM/SPF still not configured** for ivhealthclinics.com — blocks any outbound campaign regardless of email-list readiness.
+4. **Hygiene/parity items untouched:** favicon, lead capture ("Request Info") button, canonical audit.
+
+## Numbers Snapshot (end of session)
+
+| Metric | Before | After |
+|---|---|---|
+| Total clinics | 8,191 | 8,413 |
+| Directory-visible (enriched) | ~2,953 | ~3,175 (222 unverified) |
+| Clinics with email | 0 | 1,741 |
+| Pending claims | 4 (3 test) | 0 |
+| States with zero IV coverage | 6 | 0 |
+
+## Recommended Next Session
+
+1. Crawl the new ~222 gap-fill clinics for verification + service/pricing data.
+2. Set up Resend DKIM/SPF for ivhealthclinics.com.
+3. Build the actual outreach send list (group by email, not clinic row) and draft campaign copy.
+4. Hygiene pass: favicon, lead capture button, canonical audit.

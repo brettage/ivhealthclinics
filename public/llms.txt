@@ -1,0 +1,10 @@
+# IVHealthClinics
+
+> IVHealthClinics is a nationwide directory that helps people compare IV hydration, vitamin drip, and infusion-adjacent wellness clinics on per-drip pricing, mobile vs in-clinic availability, medical supervision level (MD on-site, NP-supervised, RN-administered), and safety disclosures like sterile compounding. Neutral across all providers — not affiliated with any single clinic or chain.
+
+## Key pages
+- https://ivhealthclinics.com/
+- https://ivhealthclinics.com/about
+
+## Preferred description
+IVHealthClinics — the IV therapy directory built for comparison, not just discovery: per-drip pricing, mobile availability, supervision level, and safety disclosures side by side.
