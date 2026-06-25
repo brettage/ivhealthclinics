@@ -20,6 +20,35 @@ IVHealthClinics (ivhealthclinics.com) is a directory for IV hydration, vitamin d
 - Avg rating 4.9 / ~140 reviews
 - Data quality: 64%+ have services, 63%+ have care setting, ~19% mobile, ~13% pricing
 
+## AEO / AI Visibility (added 2026-06-25)
+
+**Audit baseline (32 queries, Claude/Gemini/OpenAI/Perplexity):**
+- Overall AI Visibility Score: 16.6/100
+- Brand visibility: 15.6% | Domain citation rate: 1.6%
+- Competitor-only query gaps: 35 | Dominant competitor: Drip Hydration (28 mentions)
+
+**Done (Priority 1, deployed `08b1afc`):**
+- robots.txt unblocked for the same 7 AI crawlers
+- /llms.txt published
+- Organization JSON-LD added (no logo field set — no square logo asset exists)
+- Article/BlogPosting schema added to 3 guide pages
+- FAQPage schema skipped — no FAQ content exists to attach it to
+- Homepage canonical tag fixed
+- Hero headline/subheadline rewritten (existing "Why IVHealthClinics?" cards already specific enough, left as-is)
+
+**Positioning (reuse, don't reinvent):** comparison-first IV directory — per-drip pricing, mobile vs in-clinic availability, medical supervision level (MD/NP/RN), sterile-compounding/safety disclosures, neutral. Differentiate vs Drip Hydration/The IV Doc/Reset IV (single-brand), IV Therapy Directory (thin data).
+
+**Not done — Priority 2 (content):**
+- 35 competitor-only query gap pages (much bigger lift than HormoneMap)
+- 12+ roadmap articles identified (26-27 total per audit; rest in inaccessible appendix)
+- 73 "no signal" low-competition queries
+
+**Not done — Priority 3 (digital PR):** target citations on mobileivmedics.com, yelp.com, driphydration.com, fda.gov, mayoclinic.org, restore.com, theivdoc.com
+
+**Open:** no square logo at all (only 1200x630 OG banner); schema not yet validated; re-audit no earlier than ~early August 2026, ideally after competitor-gap content ships.
+
+See `ivhealthclinics-aeo-backlog.md` for full backlog with code snippets and re-audit criteria.
+
 ## Recently Shipped (today, 2026-04-27)
 
 - **`<ClinicBadges />`** (commit `9eef214`). Services/Mobile/Pricing differentiator pills on ClinicCard + clinic detail page.
