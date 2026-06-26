@@ -169,7 +169,7 @@ async function sendLeadNotification({
     const resend = new Resend(process.env.RESEND_API_KEY)
     await resend.emails.send({
       from: 'IVHealthClinics <notifications@ivhealthclinics.com>',
-      to: 'info@tenafterten.com',
+      to: 'info@ivhealthclinics.com',
       subject:
         source === 'clinic_profile'
           ? 'IVHealthClinics Clinic Page Lead'

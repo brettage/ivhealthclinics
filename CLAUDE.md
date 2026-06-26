@@ -32,7 +32,7 @@ IVHealthClinics (ivhealthclinics.com) is a directory for IV hydration, vitamin d
 - /llms.txt published
 - Organization JSON-LD added (no logo field set — no square logo asset exists)
 - Article/BlogPosting schema added to 3 guide pages
-- FAQPage schema skipped — no FAQ content exists to attach it to
+- FAQPage schema added to `/contact` after the FAQ content shipped
 - Homepage canonical tag fixed
 - Hero headline/subheadline rewritten (existing "Why IVHealthClinics?" cards already specific enough, left as-is)
 
@@ -60,6 +60,10 @@ See `ivhealthclinics-aeo-backlog.md` for full backlog with code snippets and re-
 - **`/guides` index page** with card grid linking to all three articles. Top-of-page CTA links to `/clinics`, `/services`, `/mobile-iv`.
 - **Manual indexing requested** in Search Console for high-value URLs (top state pages + all guides).
 
+## Content Pages — STATUS UPDATE (2026-06-25)
+
+`/about`, `/contact`, `/privacy`, and `/terms` are now live (previously listed without checkmarks — they did not exist before today). Contact email across all four: `info@ivhealthclinics.com`. `/contact` includes a working form and FAQPage JSON-LD for the four FAQ questions.
+
 ## Commands
 
 ```bash
@@ -74,7 +78,7 @@ git push             # Auto-deploys to Vercel
 - **Framework**: Next.js 16 App Router with React Server Components
 - **Database**: Supabase (PostgreSQL + RLS)
 - **Styling**: Tailwind CSS 4
-- **Email**: Resend transactional notifications to `info@tenafterten.com`
+- **Email**: Resend transactional notifications to `info@ivhealthclinics.com`
 - **Hosting**: Vercel (auto-deploy on push to main)
 - **Analytics**: Google Analytics GA4 — `G-4ZW806CWHT`
 
@@ -307,14 +311,18 @@ Sort `desc` after fetching. Implementation in `src/lib/clinic-ranking.ts`. Tune 
 - Resend DKIM/SPF is still not configured for `ivhealthclinics.com`, which blocks outbound campaign readiness regardless of list quality.
 - Hygiene/parity items remain: favicon, lead capture button, canonical audit.
 
-## Email / Lead Flow
+## Lead Capture (added 2026-06-25)
 
-Both consumer-facing inquiry paths write to the `leads` table with the service role client and send a direct Resend notification to `info@tenafterten.com`:
+Two entry points, both through `src/app/actions/leads.ts`, sharing a `createLeadRecord()` helper:
 
-- `/contact` form → `submitContactLead()` in `src/app/actions/leads.ts` → `clinic_id: null`, `source: 'contact'`
-- Clinic detail page consultation form → `createLead()` in `src/app/actions/leads.ts` → real `clinic_id`, `source: 'clinic_profile'`
+1. Contact page (`submitContactLead()`) — `clinic_id: null`, `source: 'contact'`
+2. Clinic detail pages (`createLead()`, via `ConsultForm.tsx` in the sidebar) — `source: 'clinic_profile'`, real `clinic_id`
 
-Both paths use honeypot + spam-string checks. Resend is instantiated lazily inside the server action and guarded by `RESEND_API_KEY`; it is not created at module load time.
+Both include: honeypot + spam-pattern silent-success checks, `createServiceClient()` for inserts, lazy Resend instantiation guarded by `RESEND_API_KEY` (never module-level — this broke the claim feature's build previously), `escapeHtml()` on all interpolated values including clinic name, notification sent directly to `info@ivhealthclinics.com` (real mailbox, no `tenafterten.com`/ImprovMX hop).
+
+### Known fix (2026-06-25)
+
+Clinic detail page sidebar had a layout bug — sticky "Contact Information" card overlapped the ConsultForm card while scrolling. Fixed by moving `sticky` to a shared wrapper around both cards (plus Claim Listing) instead of the individual card. Verified via build + headless Chrome at 1280/768/390px. Live email delivery after this fix not yet manually re-verified — do that before treating this as fully closed.
 
 ## Python Scripts
 
