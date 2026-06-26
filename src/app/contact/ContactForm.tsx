@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { submitContactLead } from '@/app/actions/leads'
 
 export default function ContactForm() {
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
@@ -15,16 +16,13 @@ export default function ContactForm() {
       email: (form.elements.namedItem('email') as HTMLInputElement).value,
       phone: (form.elements.namedItem('phone') as HTMLInputElement).value,
       message: (form.elements.namedItem('message') as HTMLTextAreaElement).value,
+      honeypot: (form.elements.namedItem('website') as HTMLInputElement).value,
     }
 
     try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      })
-      setStatus(res.ok ? 'success' : 'error')
-      if (res.ok) form.reset()
+      const result = await submitContactLead(data)
+      setStatus(result.success ? 'success' : 'error')
+      if (result.success) form.reset()
     } catch {
       setStatus('error')
     }
@@ -44,6 +42,11 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
+      <div className="hidden" aria-hidden="true">
+        <label htmlFor="website">Website</label>
+        <input id="website" name="website" tabIndex={-1} autoComplete="off" />
+      </div>
+
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">

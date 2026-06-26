@@ -2,11 +2,13 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 import ContactForm from './ContactForm'
 
-export const metadata: Metadata = {
-  title: 'Contact IVHealthClinics | Questions, Corrections, and Clinic Updates',
-  description:
-    'Contact IVHealthClinics with listing questions, corrections, clinic owner requests, or general feedback.',
-  alternates: { canonical: '/contact' },
+export function generateMetadata(): Metadata {
+  return {
+    title: 'Contact IVHealthClinics | Questions, Corrections, and Clinic Updates',
+    description:
+      'Contact IVHealthClinics with listing questions, corrections, clinic owner requests, or general feedback.',
+    alternates: { canonical: '/contact' },
+  }
 }
 
 const faqItems = [

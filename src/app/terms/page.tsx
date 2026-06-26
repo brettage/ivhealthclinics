@@ -1,10 +1,12 @@
 import type { Metadata } from 'next'
 
-export const metadata: Metadata = {
-  title: 'Terms of Service | IVHealthClinics',
-  description:
-    'Terms of Service for IVHealthClinics, operated by Ten After Ten Group LLC.',
-  alternates: { canonical: '/terms' },
+export function generateMetadata(): Metadata {
+  return {
+    title: 'Terms of Service | IVHealthClinics',
+    description:
+      'Terms of Service for IVHealthClinics, operated by Ten After Ten Group LLC.',
+    alternates: { canonical: '/terms' },
+  }
 }
 
 const sections = [

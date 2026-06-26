@@ -74,7 +74,7 @@ git push             # Auto-deploys to Vercel
 - **Framework**: Next.js 16 App Router with React Server Components
 - **Database**: Supabase (PostgreSQL + RLS)
 - **Styling**: Tailwind CSS 4
-- **Email**: Resend (transactional) + ImprovMX (forwarding)
+- **Email**: Resend transactional notifications to `info@tenafterten.com`
 - **Hosting**: Vercel (auto-deploy on push to main)
 - **Analytics**: Google Analytics GA4 — `G-4ZW806CWHT`
 
@@ -297,7 +297,6 @@ Sort `desc` after fetching. Implementation in `src/lib/clinic-ranking.ts`. Tune 
 - Service intro copy for `/services/[type]` pages (top 10)
 - Hybrid SEO routes: `/services/nad-plus/florida`, `/mobile-iv/florida`
 - Form field accessibility warning (form needs id or name attr)
-- "Request Info" lead form on clinic detail pages
 - Resend domain DKIM/SPF setup
 - States 26–50 SEO intros
 - Audit `/mobile-iv/[state]` and `/services/[service]/[state]` route handlers (sitemap emits them; unclear if pages exist)
@@ -308,11 +307,14 @@ Sort `desc` after fetching. Implementation in `src/lib/clinic-ranking.ts`. Tune 
 - Resend DKIM/SPF is still not configured for `ivhealthclinics.com`, which blocks outbound campaign readiness regardless of list quality.
 - Hygiene/parity items remain: favicon, lead capture button, canonical audit.
 
-## Email Flow
+## Email / Lead Flow
 
-Form submit → `createLead()` → Supabase (service role) → Resend notification → ImprovMX → info@tenafterten.com.
+Both consumer-facing inquiry paths write to the `leads` table with the service role client and send a direct Resend notification to `info@tenafterten.com`:
 
-⬜ Lead form not yet implemented on clinic pages (Priority 4 outstanding).
+- `/contact` form → `submitContactLead()` in `src/app/actions/leads.ts` → `clinic_id: null`, `source: 'contact'`
+- Clinic detail page consultation form → `createLead()` in `src/app/actions/leads.ts` → real `clinic_id`, `source: 'clinic_profile'`
+
+Both paths use honeypot + spam-string checks. Resend is instantiated lazily inside the server action and guarded by `RESEND_API_KEY`; it is not created at module load time.
 
 ## Python Scripts
 

@@ -1,10 +1,12 @@
 import type { Metadata } from 'next'
 
-export const metadata: Metadata = {
-  title: 'About IVHealthClinics | Compare IV Therapy Clinics',
-  description:
-    'Learn how IVHealthClinics helps people compare IV hydration and wellness clinics by pricing, mobile availability, medical supervision, and safety disclosures.',
-  alternates: { canonical: '/about' },
+export function generateMetadata(): Metadata {
+  return {
+    title: 'About IVHealthClinics | Compare IV Therapy Clinics',
+    description:
+      'Learn how IVHealthClinics helps people compare IV hydration and wellness clinics by pricing, mobile availability, medical supervision, and safety disclosures.',
+    alternates: { canonical: '/about' },
+  }
 }
 
 export default function AboutPage() {

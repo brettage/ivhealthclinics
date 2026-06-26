@@ -6,6 +6,8 @@ import { generateClinicSchema } from '@/lib/schema-org'
 import ClinicCard from '@/components/ClinicCard'
 import type { Metadata } from 'next'
 import ClinicBadges from '@/components/ClinicBadges'
+import ConsultForm from '@/components/ConsultForm'
+import { formatClinicName } from '@/lib/format-clinic-name'
 import { stateUrl, stateCityUrl } from '@/lib/state-slugs'
 
 export async function generateMetadata({
@@ -314,19 +316,27 @@ export default async function ClinicDetailPage({
                 </div>
               )}
             </div>
-          </div>
-        </div>
 
-        <div className="mt-6 p-4 rounded-lg bg-gray-50 border border-gray-200">
-          <p className="text-sm text-gray-600">
-            Are you the owner of {clinic.name}?{' '}
-            <Link
-              href={`/claim/${clinic.slug}`}
-              className="text-emerald-600 hover:text-emerald-700 font-medium underline"
-            >
-              Claim this listing
-            </Link>
-          </p>
+            <div className="p-4 rounded-lg bg-gray-50 border border-gray-200">
+              <p className="text-sm text-gray-600">
+                Are you the owner of {clinic.name}?{' '}
+                <Link
+                  href={`/claim/${clinic.slug}`}
+                  className="text-emerald-600 hover:text-emerald-700 font-medium underline"
+                >
+                  Claim this listing
+                </Link>
+              </p>
+            </div>
+
+            <div className="bg-gradient-to-br from-emerald-600 to-cyan-700 rounded-xl shadow-lg p-6 text-white">
+              <h3 className="text-xl font-bold mb-2">Request a Consultation</h3>
+              <p className="text-white/80 text-sm mb-6">
+                Get started with {formatClinicName(clinic.name)} today.
+              </p>
+              <ConsultForm clinicId={clinic.id} clinicName={formatClinicName(clinic.name)} />
+            </div>
+          </div>
         </div>
 
         {/* Nearby Clinics */}

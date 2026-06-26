@@ -1,10 +1,12 @@
 import type { Metadata } from 'next'
 
-export const metadata: Metadata = {
-  title: 'Privacy Policy | IVHealthClinics',
-  description:
-    'Privacy Policy for IVHealthClinics, operated by Ten After Ten Group LLC.',
-  alternates: { canonical: '/privacy' },
+export function generateMetadata(): Metadata {
+  return {
+    title: 'Privacy Policy | IVHealthClinics',
+    description:
+      'Privacy Policy for IVHealthClinics, operated by Ten After Ten Group LLC.',
+    alternates: { canonical: '/privacy' },
+  }
 }
 
 const sections = [
