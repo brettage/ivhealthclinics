@@ -69,7 +69,7 @@ export async function searchClinics({
   let q = applyVisibilityFilters(supabase.from('clinics').select('*'))
 
   if (query) {
-    q = q.or(`name.ilike.%${query}%,city.ilike.%${query}%`)
+    q = q.or(`name.ilike.%${query}%,city.ilike.%${query}%,state.ilike.%${query}%`)
   }
   if (city) {
     q = q.ilike('city', city)
