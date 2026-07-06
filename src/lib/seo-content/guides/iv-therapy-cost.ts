@@ -1,3 +1,4 @@
+// Last reviewed: July 2026
 /**
  * Guide article schema and content for /guides/iv-therapy-cost.
  *
