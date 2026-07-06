@@ -1,3 +1,4 @@
+// Last reviewed: July 2026
 import type { Guide } from './iv-therapy-cost'
 
 export const mobileVsClinicIvGuide: Guide = {
