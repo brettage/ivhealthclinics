@@ -9,12 +9,14 @@ import { sortByQualityScore, dedupeClinicsById } from '@/lib/clinic-ranking'
  *   - non-IV NPI rows (is_iv_clinic = false)
  *   - rejected/no_match/duplicate enrichment statuses
  *   - NPI rows consolidated into another canonical row
+ *   - delisted clinics
  */
 function applyVisibilityFilters<Q extends { eq: any; is: any }>(q: Q): Q {
   return q
     .eq('is_iv_clinic', true)
     .eq('enrichment_status', 'enriched')
     .is('duplicate_of', null)
+    .is('delisted_at', null)
 }
 
 
@@ -35,11 +37,8 @@ export async function getFeaturedClinics(limit = 6) {
 
 export async function getClinicBySlug(slug: string) {
   const supabase = await createClient()
-  const { data, error } = await supabase
-    .from('clinics')
-    .select('*')
-    .eq('slug', slug)
-    .single()
+  const q = applyVisibilityFilters(supabase.from('clinics').select('*').eq('slug', slug))
+  const { data, error } = await q.maybeSingle()
 
   if (error) {
     console.error('Error fetching clinic:', error)

@@ -44,6 +44,10 @@ async function fetchAllClinics<T extends Record<string, unknown>>(
     const { data } = await supabase
       .from('clinics')
       .select(selectColumns)
+      .eq('is_iv_clinic', true)
+      .eq('enrichment_status', 'enriched')
+      .is('duplicate_of', null)
+      .is('delisted_at', null)
       .range(offset, offset + PAGE_SIZE - 1)
 
     if (!data || data.length === 0) break
